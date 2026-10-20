@@ -1,0 +1,2383 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing Brain — Tendwell Group</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --bg-primary: #FAFAFA;
+    --bg-secondary: #FFFFFF;
+    --bg-card: #F5F5F0;
+    --bg-hover: #EEEEE8;
+    --border: #E0DDD5;
+    --border-light: #EDEBE5;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #7a7a7a;
+    --accent-colette: #7C3AED;
+    --accent-colette-dim: #7C3AED15;
+    --accent-colette-bg: #F5F0FF;
+    --accent-nuvopet: #0D7377;
+    --accent-nuvopet-dim: #0D737715;
+    --accent-nuvopet-bg: #F0F9F9;
+    --accent-insight: #B45309;
+    --accent-insight-dim: #B4530915;
+    --accent-insight-bg: #FFF8F0;
+    --green: #16A34A;
+    --red: #DC2626;
+    --orange: #EA580C;
+    --yellow: #CA8A04;
+    --blue: #2563EB;
+    --purple: #7C3AED;
+    --sidebar-w: 300px;
+    --tag-unaware: #9CA3AF;
+    --tag-problem: #DC2626;
+    --tag-solution: #2563EB;
+    --tag-product: #16A34A;
+    --tag-most: #CA8A04;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.7;
+    overflow-x: hidden;
+    font-size: 16px;
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    z-index: 100;
+    padding: 0;
+  }
+  .sidebar-header {
+    padding: 24px 20px 16px;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0;
+    background: var(--bg-secondary);
+    z-index: 10;
+  }
+  .sidebar-header h1 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+  }
+  .sidebar-header p {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .nav-group {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .nav-group-title {
+    padding: 6px 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-group-title.colette { color: var(--accent-colette); }
+  .nav-group-title.nuvopet { color: var(--accent-nuvopet); }
+  .nav-group-title.insight { color: var(--accent-insight); }
+  .nav-group-title .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+  .nav-group-title.colette .dot { background: var(--accent-colette); }
+  .nav-group-title.nuvopet .dot { background: var(--accent-nuvopet); }
+  .nav-group-title.insight .dot { background: var(--accent-insight); }
+
+  .nav-link {
+    display: block;
+    padding: 5px 20px 5px 36px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.15s;
+    line-height: 1.5;
+  }
+  .nav-link:hover {
+    color: var(--text-primary);
+    background: var(--bg-card);
+  }
+
+  /* MAIN */
+  .main {
+    margin-left: var(--sidebar-w);
+    padding: 40px 60px 100px;
+    max-width: 960px;
+  }
+
+  /* BRAND TABS */
+  .brand-tabs {
+    display: flex; gap: 8px;
+    margin-bottom: 32px;
+    position: sticky; top: 0;
+    background: var(--bg-primary);
+    padding: 16px 0;
+    z-index: 50;
+    border-bottom: 1px solid var(--border);
+  }
+  .brand-tab {
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    transition: all 0.2s;
+  }
+  .brand-tab:hover { border-color: var(--text-muted); }
+  .brand-tab.active-colette {
+    background: var(--accent-colette);
+    color: white;
+    border-color: var(--accent-colette);
+  }
+  .brand-tab.active-nuvopet {
+    background: var(--accent-nuvopet);
+    color: white;
+    border-color: var(--accent-nuvopet);
+  }
+  .brand-tab.active-insight {
+    background: var(--accent-insight);
+    color: white;
+    border-color: var(--accent-insight);
+  }
+
+  /* SECTIONS */
+  .brand-section { display: none; }
+  .brand-section.active { display: block; }
+
+  .section {
+    margin-bottom: 48px;
+    scroll-margin-top: 80px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-icon {
+    font-size: 24px;
+  }
+  .section-title {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+  }
+
+  .section-intro {
+    padding: 20px 24px;
+    background: var(--bg-card);
+    border-radius: 10px;
+    margin-bottom: 24px;
+    border-left: 4px solid var(--border);
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .section-intro.colette { border-left-color: var(--accent-colette); background: var(--accent-colette-dim); }
+  .section-intro.nuvopet { border-left-color: var(--accent-nuvopet); background: var(--accent-nuvopet-dim); }
+  .section-intro.insight { border-left-color: var(--accent-insight); background: var(--accent-insight-dim); }
+
+  /* CONTENT */
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 28px 0 12px;
+    color: var(--text-primary);
+  }
+  h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 20px 0 8px;
+    color: var(--text-primary);
+  }
+  p {
+    margin-bottom: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  strong { color: var(--text-primary); }
+
+  /* BLOCKQUOTES */
+  blockquote {
+    margin: 16px 0;
+    padding: 16px 20px;
+    background: var(--bg-card);
+    border-left: 4px solid var(--border);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: var(--text-secondary);
+    position: relative;
+  }
+  blockquote::before {
+    content: '\201C';
+    font-size: 48px;
+    color: var(--border);
+    position: absolute;
+    top: -5px; left: 8px;
+    font-family: Georgia, serif;
+  }
+  blockquote p { margin-bottom: 4px; padding-left: 24px; }
+  blockquote cite {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+    padding-left: 24px;
+    font-style: normal;
+    margin-top: 4px;
+  }
+
+  /* TAGS */
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .tag-unaware { background: #F3F4F6; color: #6B7280; }
+  .tag-problem { background: #FEE2E2; color: #DC2626; }
+  .tag-solution { background: #DBEAFE; color: #2563EB; }
+  .tag-product { background: #DCFCE7; color: #16A34A; }
+  .tag-most { background: #FEF3C7; color: #CA8A04; }
+
+  /* TABLES */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 14px;
+  }
+  th {
+    text-align: left;
+    padding: 10px 14px;
+    background: var(--bg-card);
+    border-bottom: 2px solid var(--border);
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+  tr:hover td { background: var(--bg-card); }
+
+  /* ACCORDION */
+  details {
+    margin: 12px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  summary {
+    padding: 14px 18px;
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 15px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: '\25B6';
+    font-size: 10px;
+    transition: transform 0.2s;
+    color: var(--text-muted);
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details[open] summary {
+    border-bottom: 1px solid var(--border-light);
+  }
+  .accordion-content {
+    padding: 18px 20px;
+    background: var(--bg-primary);
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 12px 0;
+  }
+  .card-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+  }
+
+  /* AVATAR CARD */
+  .avatar-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 20px 0;
+  }
+  .avatar-name {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .avatar-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+  .avatar-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .avatar-field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    margin-bottom: 3px;
+  }
+  .avatar-field span {
+    font-size: 14px;
+    color: var(--text-primary);
+  }
+
+  /* LEVEL INDICATOR */
+  .level-bar {
+    display: flex; gap: 3px; margin: 4px 0;
+  }
+  .level-dot {
+    width: 20px; height: 6px; border-radius: 3px;
+    background: var(--border);
+  }
+  .level-dot.active { background: var(--red); }
+  .level-dot.active-2 { background: var(--orange); }
+  .level-dot.active-3 { background: var(--yellow); }
+  .level-dot.active-4 { background: var(--green); }
+
+  /* HOOK CARD */
+  .hook-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 10px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .hook-num {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--text-muted);
+    background: var(--bg-card);
+    border-radius: 6px;
+    padding: 4px 8px;
+    flex-shrink: 0;
+  }
+  .hook-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.5;
+  }
+  .hook-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  /* ANGLE CARD */
+  .angle-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin: 16px 0;
+  }
+  .angle-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 12px;
+  }
+  .angle-name {
+    font-size: 17px;
+    font-weight: 700;
+  }
+  .angle-type {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--bg-card);
+    color: var(--text-muted);
+  }
+
+  /* PROGRESSION */
+  .progression {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+  .progression-step {
+    padding: 10px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    position: relative;
+  }
+  .progression-step:first-child { border-radius: 8px 0 0 8px; }
+  .progression-step:last-child { border-radius: 0 8px 8px 0; }
+  .progression-arrow {
+    font-size: 16px;
+    color: var(--text-muted);
+    padding: 0 2px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 20px; }
+    .avatar-grid { grid-template-columns: 1fr; }
+    .brand-tabs { flex-wrap: wrap; }
+  }
+
+  /* PRINT */
+  @media print {
+    .sidebar { display: none; }
+    .main { margin-left: 0; max-width: 100%; }
+    .brand-tabs { display: none; }
+    details { break-inside: avoid; }
+    details[open] { break-inside: auto; }
+  }
+
+  /* VISUAL SCHEMA */
+  .schema-box {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin: 16px 0;
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    overflow-x: auto;
+    white-space: pre-wrap;
+  }
+
+  .highlight-box {
+    padding: 20px 24px;
+    border-radius: 10px;
+    margin: 16px 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.6;
+  }
+  .highlight-box.colette { background: var(--accent-colette-bg); border: 1px solid var(--accent-colette); color: var(--accent-colette); }
+  .highlight-box.nuvopet { background: var(--accent-nuvopet-bg); border: 1px solid var(--accent-nuvopet); color: var(--accent-nuvopet); }
+
+  /* GRID 2 COL */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  @media (max-width: 700px) {
+    .grid-2 { grid-template-columns: 1fr; }
+  }
+
+  /* ONE BELIEF */
+  .one-belief {
+    text-align: center;
+    padding: 32px;
+    margin: 24px 0;
+    border-radius: 12px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+  .one-belief.colette { background: var(--accent-colette-bg); color: var(--accent-colette); border: 2px solid var(--accent-colette); }
+  .one-belief.nuvopet { background: var(--accent-nuvopet-bg); color: var(--accent-nuvopet); border: 2px solid var(--accent-nuvopet); }
+
+  .souffrance-level {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin: 8px 0;
+  }
+  .souffrance-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    color: white;
+    flex-shrink: 0;
+  }
+  .souffrance-num.s1 { background: var(--red); }
+  .souffrance-num.s2 { background: #F97316; }
+  .souffrance-num.s3 { background: #EAB308; }
+  .souffrance-num.s4 { background: #22C55E; }
+  .souffrance-num.s5 { background: #3B82F6; }
+  .souffrance-num.s6 { background: #8B5CF6; }
+
+  /* TRANSLATION BOXES */
+  .trad-fr {
+    background: linear-gradient(135deg, #F0F4FF 0%, #F8F6FF 100%);
+    border-left: 3px solid #8B9CF7;
+    padding: 10px 16px;
+    margin: 4px 0 16px 20px;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    color: #4a4a6a;
+    font-style: italic;
+    line-height: 1.6;
+  }
+  .trad-fr::before {
+    content: "🇫🇷 ";
+    font-style: normal;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <h1>Marketing Brain</h1>
+    <p>Tendwell Group -- Bible Strategique</p>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title colette"><span class="dot"></span>COLETTE CONFORT</div>
+    <a class="nav-link" href="#c-avatar" onclick="showBrand('colette')">Avatar 360</a>
+    <a class="nav-link" href="#c-voix" onclick="showBrand('colette')">Voix du Client</a>
+    <a class="nav-link" href="#c-desires" onclick="showBrand('colette')">Mass Desires</a>
+    <a class="nav-link" href="#c-souffrance" onclick="showBrand('colette')">6 Niveaux de Souffrance</a>
+    <a class="nav-link" href="#c-croyances" onclick="showBrand('colette')">Croyances Necessaires</a>
+    <a class="nav-link" href="#c-mecanismes" onclick="showBrand('colette')">Mecanismes Uniques</a>
+    <a class="nav-link" href="#c-strategie" onclick="showBrand('colette')">Strategie DR</a>
+    <a class="nav-link" href="#c-angles" onclick="showBrand('colette')">15 Angles de Pub</a>
+    <a class="nav-link" href="#c-hooks" onclick="showBrand('colette')">Hooks</a>
+    <a class="nav-link" href="#c-garantie" onclick="showBrand('colette')">Garantie</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title nuvopet"><span class="dot"></span>NUVOPET / PURECOAT</div>
+    <a class="nav-link" href="#n-avatar" onclick="showBrand('nuvopet')">Avatar 360</a>
+    <a class="nav-link" href="#n-voix" onclick="showBrand('nuvopet')">Voix du Client</a>
+    <a class="nav-link" href="#n-desires" onclick="showBrand('nuvopet')">Mass Desires</a>
+    <a class="nav-link" href="#n-souffrance" onclick="showBrand('nuvopet')">6 Niveaux de Souffrance</a>
+    <a class="nav-link" href="#n-croyances" onclick="showBrand('nuvopet')">Croyances Necessaires</a>
+    <a class="nav-link" href="#n-mecanismes" onclick="showBrand('nuvopet')">Mecanismes Uniques</a>
+    <a class="nav-link" href="#n-strategie" onclick="showBrand('nuvopet')">Strategie DR</a>
+    <a class="nav-link" href="#n-angles" onclick="showBrand('nuvopet')">15 Angles de Pub</a>
+    <a class="nav-link" href="#n-hooks" onclick="showBrand('nuvopet')">Hooks</a>
+    <a class="nav-link" href="#n-garantie" onclick="showBrand('nuvopet')">Garantie</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title insight"><span class="dot"></span>INSIGHTS</div>
+    <a class="nav-link" href="#i-tam" onclick="showBrand('insights')">Angles x TAM Ranking</a>
+    <a class="nav-link" href="#i-podcast" onclick="showBrand('insights')">Podcast Master</a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- BRAND TABS -->
+  <div class="brand-tabs">
+    <div class="brand-tab active-colette" onclick="showBrand('colette')" id="tab-colette">Colette Confort</div>
+    <div class="brand-tab" onclick="showBrand('nuvopet')" id="tab-nuvopet">Nuvopet / Purecoat</div>
+    <div class="brand-tab" onclick="showBrand('insights')" id="tab-insights">Insights</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- COLETTE CONFORT -->
+  <!-- ============================================================ -->
+  <div class="brand-section active" id="section-colette">
+
+    <!-- AVATAR 360 -->
+    <div class="section" id="c-avatar">
+      <div class="section-header">
+        <span class="section-icon">&#128100;</span>
+        <h2 class="section-title">Avatar 360</h2>
+      </div>
+      <div class="section-intro colette">
+        <strong>C'est quoi un avatar?</strong> Un avatar, c'est un portrait detaille et fictif de notre cliente ideale. On lui donne un prenom, un age, un mode de vie, des frustrations et des desirs. Pourquoi? Parce qu'on ne vend pas "a tout le monde" -- on parle a une PERSONNE. Quand on sait exactement a qui on s'adresse, chaque pub, chaque email, chaque phrase de notre site web devient 10 fois plus percutante. C'est comme ecrire une lettre a une amie au lieu de crier dans un megaphone.
+        <br><br>
+        Chez Colette Confort, on a identifie <strong>2 avatars</strong> a partir de 2,962 reviews analysees sur Maggie's Tanks, TrueKind, Shapermint, ThirdLove, Knix, Honeylove et d'autres.
+      </div>
+
+      <!-- DIANE -->
+      <div class="avatar-card">
+        <div class="avatar-name" style="color: var(--accent-colette);">DIANE</div>
+        <div class="avatar-subtitle">La cible PRINCIPALE -- femme 50+, fatiguee des bras, QC</div>
+        <p><em>"Diane endure des bras inconfortables depuis 40 ans parce qu'elle croit que 'c'est normal' -- elle a des marques rouges permanentes sur les epaules et n'a jamais trouve un bra qui ne la fait pas souffrir."</em></p>
+
+        <div class="avatar-grid">
+          <div class="avatar-field"><label>Age</label><span>57 ans</span></div>
+          <div class="avatar-field"><label>Situation</label><span>Mariee, 2 enfants adultes, 1 petit-fils</span></div>
+          <div class="avatar-field"><label>Profession</label><span>Receptionniste, clinique dentaire a Laval</span></div>
+          <div class="avatar-field"><label>Revenus menage</label><span>~95 000$/an</span></div>
+          <div class="avatar-field"><label>Awareness (Schwartz)</label><span><span class="tag tag-solution">Stage 3 -- Solution-Aware</span></span></div>
+          <div class="avatar-field"><label>Canal principal</label><span>Facebook (90% du temps en ligne)</span></div>
+        </div>
+
+        <h4>Sa journee type</h4>
+        <p>6h00: Premier geste apres la douche, enfiler le bra. Ajuster les bretelles. Replacer les coussinets qui ont bouge au lavage. 7h30: Au travail, les bretelles creusent deja. A 10h, elle remonte discretement la bretelle droite qui glisse. 15h: Bouffee de chaleur, la sueur s'accumule sous le bra. 17h30: PREMIER GESTE en rentrant: elle enleve son bra. Les marques rouges sont la. 21h: Sur le divan, scroll Facebook. C'est LA qu'elle voit les ads. C'est la que Colette doit la rejoindre.</p>
+
+        <h4>Top 5 frustrations</h4>
+        <p><strong>1. Les bretelles qui creusent depuis 40 ans.</strong> Elle a des sillons permanents sur les epaules. Elle pensait que c'etait normal.</p>
+        <blockquote><p>Wider straps that do not dig in</p><cite>-- Heidi Slen Walsh, Trustpilot/TrueKind</cite></blockquote>
+        <div class="trad-fr">Des bretelles plus larges qui ne creusent pas</div>
+        <p><strong>2. Les coussinets qui bougent a chaque lavage.</strong> Chaque semaine, meme rituel: sortir les pads tordus de la laveuse, les remettre en place.</p>
+        <blockquote><p>These dumb pads wouldn't stay put if they were glued on</p><cite>-- Anonyme, Amazon reviews</cite></blockquote>
+        <div class="trad-fr">Ces maudits coussinets resteraient même pas en place s'ils étaient collés</div>
+        <p><strong>3. Le sizing impossible.</strong> Elle ne sait plus quelle taille elle fait. 38C? 40B? XL? Chaque marque a son propre systeme.</p>
+        <blockquote><p>stuck with three bras that don't fit...I'm out over $100</p><cite>-- Micki Cooney, Trustpilot/TrueKind</cite></blockquote>
+        <div class="trad-fr">Pognée avec trois bras qui font pas... j'ai perdu plus de 100$</div>
+        <p><strong>4. Le tissu cheap qui ne ressemble pas a la pub.</strong> Transparent, coutures croches, coussinets visibles.</p>
+        <blockquote><p>The sheerest, thinnest fabric... you can see the pad through the top</p><cite>-- Anonyme, Amazon reviews</cite></blockquote>
+        <div class="trad-fr">Le tissu le plus transparent, le plus mince... tu vois le coussinet à travers le dessus</div>
+        <p><strong>5. L'impossibilite de retourner.</strong> Retourner un bra achete en ligne coute plus cher que le bra lui-meme.</p>
+        <blockquote><p>return postage would cost more than tanks are worth...30% refund</p><cite>-- Lynnae, Trustpilot/Maggie's</cite></blockquote>
+        <div class="trad-fr">Les frais de retour coûteraient plus cher que les camisoles... remboursement de 30%</div>
+
+        <h4>Ce qu'elle dit a ses amies (FR-QC joual)</h4>
+        <blockquote><p>Checke. Ca fait 40 ans que j'endure ca. Les marques rouges partent meme pus. Mon chum pense que c'est des tatouages.</p></blockquote>
+        <blockquote><p>Les coussinets, crisse. Chaque lavage faut que je les replaces. Ca me prend 5 minutes juste pour retrouver le bon bord. J'hais ca.</p></blockquote>
+        <blockquote><p>Mon premier geste en rentrant a maison? J'enleve mon bra. Pis la, la, je respire. C'est-tu normal ca?</p></blockquote>
+
+        <h4>Ses peurs</h4>
+        <p>Gaspiller son argent sur un produit de plus qui ne marche pas. Que son corps continue de changer (menopause). Etre vue comme negligee si elle ne porte pas de bra. Que les gens jugent son bourrelet dans le dos.</p>
+
+        <h4>Ses 5 objections</h4>
+        <table>
+          <tr><th>Objection</th><th>Profondeur</th><th>Comment Colette repond</th></tr>
+          <tr><td>"Ca va etre la meme marde que d'habitude"</td><td>CRITIQUE</td><td>Angle sceptique: "Fait que je l'ai commandee jusse pour me prouver que c'etait de la marde."</td></tr>
+          <tr><td>"La taille va etre fausse"</td><td>CRITIQUE</td><td>"Pas de bonnet. Pas de bande. Juste ta taille." + Echange gratuit</td></tr>
+          <tr><td>"Si ca fit pas, je vais etre pognee avec"</td><td>ELEVEE</td><td>"Tu gardes celle que t'as + on t'envoie la bonne taille gratuit."</td></tr>
+          <tr><td>"Ca va pas supporter mes gros seins"</td><td>ELEVEE (D+)</td><td>Temoignages video de femmes D+</td></tr>
+          <tr><td>"C'est probablement un scam de Facebook"</td><td>MOYEN-ELEVE</td><td>Nom quebecois, site en francais, ton authentique</td></tr>
+        </table>
+      </div>
+
+      <!-- KARINE -->
+      <div class="avatar-card">
+        <div class="avatar-name" style="color: var(--accent-colette);">KARINE</div>
+        <div class="avatar-subtitle">La cible SECONDAIRE -- femme 40-50, DD+, achete pour elle + sa mere</div>
+        <p><em>"Karine a une forte poitrine (DD+), elle est fatiguee des bras qui ne sont pas faits pour elle, et elle cherche activement une alternative -- pour elle ET comme cadeau pour sa mere de 72 ans."</em></p>
+
+        <div class="avatar-grid">
+          <div class="avatar-field"><label>Age</label><span>44 ans</span></div>
+          <div class="avatar-field"><label>Situation</label><span>Divorcee, 2 enfants (14 et 11), en couple depuis 2 ans</span></div>
+          <div class="avatar-field"><label>Profession</label><span>Coordonnatrice de projets, PME a Sherbrooke</span></div>
+          <div class="avatar-field"><label>Revenus</label><span>~55 000$/an</span></div>
+          <div class="avatar-field"><label>Awareness</label><span><span class="tag tag-solution">Stage 3-4</span></span></div>
+          <div class="avatar-field"><label>Canaux</label><span>Facebook (60%) + Instagram (30%)</span></div>
+        </div>
+
+        <h4>Ce qui la differencie de Diane</h4>
+        <p>Karine est plus jeune, plus a l'aise en ligne, active sur Instagram. Sa frustration #1 n'est pas les bretelles mais le <strong>uni-boob</strong>: chaque bralette wireless lui donne un seul bloc au lieu de deux seins distincts. Son 2eme moteur d'achat est le CADEAU pour sa mere de 72 ans qui souffre en silence.</p>
+        <blockquote><p>J'ai un DD. Le wireless, ca existe pas pour moi. Chaque fois c'est la meme affaire: ca tient rien, j'ai l'air d'une poche.</p></blockquote>
+        <blockquote><p>Ma mere a 72 ans pis a porte encore le meme bra deprimant de Sears. Faut que je lui trouve de quoi de decent.</p></blockquote>
+
+        <h4>Matrice Diane vs Karine</h4>
+        <table>
+          <tr><th>Dimension</th><th>Diane</th><th>Karine</th></tr>
+          <tr><td>Frustration #1</td><td>Bretelles qui creusent</td><td>Aucun wireless ne supporte DD+</td></tr>
+          <tr><td>Desir #1</td><td>Arreter de souffrir</td><td>Support REEL sans armature</td></tr>
+          <tr><td>Peur dominante</td><td>Gaspiller son argent</td><td>Rien ne marche pour sa morphologie</td></tr>
+          <tr><td>Declencheur d'achat</td><td>Coussinets tordus de trop</td><td>Voir une femme D+ porter le produit</td></tr>
+          <tr><td>Ton qui convertit</td><td>"Fait que je l'ai commandee jusse pour me prouver que c'etait de la marde."</td><td>"DD pis tannee du uni-boob? Moi aussi."</td></tr>
+          <tr><td>Motif secondaire</td><td>Pour sa soeur/amie</td><td>Pour sa mere de 72 ans</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- VOIX DU CLIENT -->
+    <div class="section" id="c-voix">
+      <div class="section-header">
+        <span class="section-icon">&#128172;</span>
+        <h2 class="section-title">Voix du Client</h2>
+      </div>
+      <div class="section-intro colette">
+        <strong>C'est quoi la "Voix du Client"?</strong> Ce sont les vrais mots que les vrais clientes utilisent quand elles parlent de leur probleme. Pas nos mots a nous. Les LEURS. On a analyse 2,962 reviews sur Amazon, Trustpilot et Walmart, pour 6 marques concurrentes (Maggie's Tanks, TrueKind, Shapermint, ThirdLove, Knix, Honeylove). Chaque verbatim entre guillemets est une VRAIE citation. Pourquoi c'est important? Parce que quand une cliente lit nos pubs et reconnait SES propres mots, elle se dit: "C'est moi. Ils me comprennent." C'est le secret de la publicite qui vend.
+      </div>
+
+      <h3>Les 10 problemes les plus frequents</h3>
+      <p>Voici les 10 frustrations les plus mentionnees dans les 2,962 reviews analysees. Chaque pourcentage represente la proportion de reviews qui mentionnent ce probleme.</p>
+
+      <details open>
+        <summary><strong>#1 -- La taille est fausse / Le sizing est un cauchemar</strong> (773 mentions, 30.5%)</summary>
+        <div class="accordion-content">
+          <p>C'est le probleme numero un. Presque une review sur trois mentionne un probleme de taille. Les femmes commandent ce qu'elles pensent etre leur taille et recoivent quelque chose qui ne ressemble en rien a ce qu'elles attendaient. Le systeme bonnet + bande (34C, 36D, etc.) est incomprehensible pour la majorite des femmes 45+.</p>
+          <blockquote><p>I felt like a sausage in the mediums</p><cite>-- Anonyme, Amazon reviews</cite></blockquote>
+        <div class="trad-fr">J'avais l'air d'une saucisse dans les médiums</div>
+          <blockquote><p>Size charts wildly inaccurate. Products not worth it.</p><cite>-- Eve, Trustpilot/TrueKind</cite></blockquote>
+        <div class="trad-fr">Les chartes de tailles complètement inexactes. Les produits valent pas la peine.</div>
+          <blockquote><p>stuck with three bras that don't fit...I'm out over $100</p><cite>-- Micki Cooney, Trustpilot/TrueKind</cite></blockquote>
+        <div class="trad-fr">Pognée avec trois bras qui font pas... j'ai perdu plus de 100$</div>
+          <p><strong>Pourquoi c'est important pour nous:</strong> Le sizing S-2XL par tour de poitrine de Colette simplifie tout. C'est un differenciateur MASSIF a exploiter en ads: "Pas de bonnet. Pas de bande. Juste ta taille."</p>
+          <p><strong>Statistique cle:</strong> 80% des femmes portent la mauvaise taille de bra (Fashionista.com). Les retours en lingerie oscillent entre 30% et 35% a cause du fit.</p>
+        </div>
+      </details>
+
+      <details open>
+        <summary><strong>#2 -- Le tissu est cheap, transparent, pas comme dans la pub</strong> (556 mentions, 21.9%)</summary>
+        <div class="accordion-content">
+          <p>Le deuxieme plus gros irritant. Les femmes recoivent un produit qui ne ressemble pas a ce qu'elles ont vu dans la publicite. Le tissu est fin, transparent, et les coussinets se voient a travers.</p>
+          <blockquote><p>The sheerest, thinnest fabric... you can see the pad through the top</p><cite>-- Anonyme, Amazon reviews</cite></blockquote>
+        <div class="trad-fr">Le tissu le plus transparent, le plus mince... tu vois le coussinet à travers le dessus</div>
+          <blockquote><p>Fake ads the item shown is not what you receive cheap elastic fabric made in china!</p><cite>-- Mary Medeiros, Trustpilot/Maggie's</cite></blockquote>
+        <div class="trad-fr">Fausses publicités, l'article montré c'est pas ce que tu reçois, tissu élastique cheap fait en Chine !</div>
+          <p><strong>Pourquoi c'est important pour nous:</strong> Le tissu opaque mat double epaisseur du Tank Confort est un argument MAJEUR. "Tu vois pas les coussinets. Tu vois pas ta peau. Tu vois rien."</p>
+        </div>
+      </details>
+
+      <details open>
+        <summary><strong>#3 -- Les retours sont un calvaire / Le service client est inexistant</strong> (492 mentions, 19.4%)</summary>
+        <div class="accordion-content">
+          <p>Presque 20% des reviews parlent de la difficulte a retourner le produit. Les femmes se sentent piégées apres l'achat.</p>
+          <blockquote><p>Trying to return these bras is a nightmare</p><cite>-- Sandra, Trustpilot/TrueKind</cite></blockquote>
+        <div class="trad-fr">Essayer de retourner ces bras c'est un cauchemar</div>
+          <blockquote><p>there is absolutely NO way to speak to somebody...All they offer is AI chatbots</p><cite>-- Deborah Turner, Trustpilot/TrueKind</cite></blockquote>
+        <div class="trad-fr">Il y a AUCUN moyen de parler à quelqu'un... Tout ce qu'ils offrent c'est des chatbots IA</div>
+          <p><strong>Pourquoi c'est important pour nous:</strong> L'echange de taille gratuit ("tu gardes celle que t'as") est un TUEUR d'objections. Le service en francais avec un humain (pas un chatbot IA) est un avantage concurrentiel reel.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>#4 -- Les coussinets bougent / se tordent au lavage</strong> (288 mentions, 11.4%)</summary>
+        <div class="accordion-content">
+          <p>Le probleme SPECIFIQUE aux tanks avec bra integre. Les coussinets amovibles se deplacent, se plient, se tordent dans la machine a laver.</p>
+          <blockquote><p>These dumb pads wouldn't stay put if they were glued on</p><cite>-- Anonyme, Amazon reviews</cite></blockquote>
+        <div class="trad-fr">Ces maudits coussinets resteraient même pas en place s'ils étaient collés</div>
+          <blockquote><p>the pads twisted when washed. Which is what I was trying to avoid.</p><cite>-- Janet Gable, Trustpilot/Maggie's</cite></blockquote>
+        <div class="trad-fr">Les coussinets se sont tordus au lavage. C'est exactement ce que j'essayais d'éviter.</div>
+          <p><strong>Pourquoi c'est important pour nous:</strong> Les coussinets COUSUS (sewn-in pads) sont le differenciateur #1 du Tank Confort. Chaque ad devrait mentionner: "Les coussinets bougent pas. Sont cousus dedans."</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>#5 -- Les bretelles creusent dans les epaules</strong> (253 mentions, 10.0%)</summary>
+        <div class="accordion-content">
+          <p>Les bretelles fines des bras traditionnels creusent des sillons dans les epaules. Certaines femmes ont des marques permanentes apres 30+ ans.</p>
+          <blockquote><p>She stopped wearing bras five years ago and the dents in her shoulders still haven't gone away</p><cite>-- Cite dans Wikipedia/Bralessness</cite></blockquote>
+        <div class="trad-fr">Elle a arrêté de porter des bras il y a cinq ans et les marques dans ses épaules sont toujours pas parties</div>
+          <p><strong>Pourquoi c'est important pour nous:</strong> Les bretelles larges 4cm sont la reponse PHYSIQUE. "Pas des petites ficelles qui te rentrent dans les epaules."</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>#6 -- Pas de support / seins qui tombent / uni-boob</strong> (215 mentions, 8.5%)</summary>
+        <div class="accordion-content">
+          <blockquote><p>Saggy, uni-boob look</p><cite>-- Anonyme, Amazon reviews</cite></blockquote>
+        <div class="trad-fr">Look tombant, mono-sein</div>
+          <blockquote><p>The bras are advertised as large-bust friendly, but they have no support</p><cite>-- AJ Jordan, Trustpilot/TrueKind</cite></blockquote>
+        <div class="trad-fr">Les bras sont annoncés comme adaptés aux fortes poitrines, mais ils offrent aucun support</div>
+          <p>La tension fondamentale du marche: wireless = confort MAIS wireless = pas de support. Colette doit PROUVER visuellement que le support existe sans armature.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>#7-#10 -- Chaleur (102), Armatures (100), Abonnement cache (67), Made in China (18)</strong></summary>
+        <div class="accordion-content">
+          <p><strong>#7 Trop chaud (102 mentions):</strong> Surtout pour les femmes 45-60 en perimenopause. "T'as chaud sous ton bra?" est un angle universel, pas medical.</p>
+          <p><strong>#8 Armatures (100 mentions):</strong> Le symbole de tout ce que les femmes detestent. "Zero armature. Zero broche. Zero agrafe."</p>
+          <p><strong>#9 Abonnement cache (67 mentions):</strong> Specifique a TrueKind. "billing unauthorized monthly charges" -- pour le US, l'angle "anti-TrueKind" est puissant.</p>
+          <p><strong>#10 Made in China (18 mentions):</strong> Volume faible mais impact emotionnel fort. Le nom "Colette Confort" inspire confiance naturellement au QC.</p>
+        </div>
+      </details>
+
+      <h3>Les 10 desirs les plus profonds</h3>
+      <details open>
+        <summary><strong>#1 -- Le confort absolu, oublier qu'on porte quelque chose</strong> (769 mentions, 30.3%)</summary>
+        <div class="accordion-content">
+          <p>"Comfortable" est le mot le plus utilise dans TOUTES les reviews positives. Mais ce n'est pas juste le confort -- c'est l'OUBLI. La femme veut enfiler quelque chose le matin et ne plus y penser.</p>
+          <blockquote><p>So darn comfortable, I forget I am wearing a bra</p><cite>-- Anonyme, Amazon reviews</cite></blockquote>
+        <div class="trad-fr">Tellement confortable que j'oublie que je porte un bra</div>
+          <blockquote><p>They are seriously all I wear.</p><cite>-- Laura, Trustpilot/TrueKind</cite></blockquote>
+        <div class="trad-fr">C'est sérieusement tout ce que je porte.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>#2 -- Etre invisible sous les vetements</strong> (307 mentions) | <strong>#3 -- Trouver LE produit</strong> (154 mentions)</summary>
+        <div class="accordion-content">
+          <p><strong>Invisibilite (307 mentions):</strong> Les femmes ne veulent PAS qu'on voie leur bra sous leurs vetements. "Smooth lines under my clothes."</p>
+          <p><strong>Fin de la quete (154 mentions):</strong> "the most comfortable one I have ever worn in 50 years" (karen). "78 and finally found something that actually supports me!" Ces femmes cherchent depuis des DECENNIES.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>#4-#10 -- Racheter en multiples, Pas de marques rouges, Support wireless, Se sentir belle, Routine simple, Dormir, Liberation</strong></summary>
+        <div class="accordion-content">
+          <p><strong>Racheter (87 mentions):</strong> "I want this shirt in every color" -- signal de satisfaction totale.</p>
+          <p><strong>Pas de marques rouges (64 mentions):</strong> Les marques rouges sont la preuve VISIBLE de la souffrance.</p>
+          <p><strong>Support sans armature (250+ mentions composites):</strong> La grande tension: les femmes veulent les DEUX: confort ET support.</p>
+          <p><strong>Se sentir belle (100+ mentions indirectes):</strong> "Husband thought it made my girls look amazing" -- le desir code en validation sociale.</p>
+          <p><strong>Ne plus jamais porter un bra (24 mentions directes):</strong> Une rebellion contre 30-50 ans d'inconfort.</p>
+        </div>
+      </details>
+
+      <h3>Parcours emotionnel de la cliente</h3>
+      <div class="schema-box">AVANT L'AD:
+Frustration accumulee (30+ ans) + Honte (corps qui change) + Resignation ("c'est normal")
+
+PENDANT L'AD:
+Reconnaissance ("c'est moi!") + Espoir fragile ("ca pourrait marcher?") + Scepticisme ("j'ai deja vu ca")
+
+DECISION D'ACHAT:
+Espoir > Scepticisme (grace a la politique d'echange gratuit + prix raisonnable)
+
+RECEPTION DU PRODUIT:
+Apprehension ("ca va etre comme les autres") -> Soulagement ("ca fit!") -> Surprise ("c'est vraiment confortable")
+
+POST-ADOPTION (2-4 semaines):
+Fierte ("mon chum a remarque") + Evangelisation ("j'en ai parle a ma soeur") + Rachat ("j'en veux dans toutes les couleurs")</div>
+    </div>
+
+    <!-- MASS DESIRES -->
+    <div class="section" id="c-desires">
+      <div class="section-header">
+        <span class="section-icon">&#128150;</span>
+        <h2 class="section-title">Mass Desires</h2>
+      </div>
+      <div class="section-intro colette">
+        <strong>C'est quoi un "Mass Desire"?</strong> C'est un desir profond que beaucoup de personnes partagent dans un meme marche. Eugene Schwartz, un des plus grands copywriters de l'histoire, a ecrit: "Tu ne crees pas le desir. Tu le canalises." On ne peut pas inventer l'envie d'etre confortable -- elle existe deja chez des millions de femmes. Notre job, c'est de CONNECTER ce desir au Tank Confort. Chaque desir est classe par urgence (combien c'est brulant) et par taille de marche (combien de femmes le ressentent).
+      </div>
+
+      <div class="highlight-box colette">Le message UNIQUE qui traverse TOUS les desires: "Un vetement qui te supporte SANS te faire souffrir -- du matin au soir, du S au 2XL, sans jamais y repenser."</div>
+
+      <details open>
+        <summary><strong>#1 -- Liberation de la douleur quotidienne</strong> (Urgence: 10/10)</summary>
+        <div class="accordion-content">
+          <p><strong>Ce que la cliente dit:</strong> "Je veux arreter de souffrir chaque jour a cause de mon bra -- les marques rouges, les bretelles qui creusent, les armatures qui rentrent dans ma peau."</p>
+          <p><strong>Pourquoi c'est le plus puissant:</strong> C'est le desir le plus primitif: cesser de souffrir physiquement. Ce n'est pas un desir de luxe -- c'est un besoin biologique. 253 mentions de bretelles qui creusent, 100 mentions de marques rouges. Une femme a rapporte que ses sillons d'epaules n'ont toujours pas disparu CINQ ANS apres avoir arrete de porter un bra.</p>
+          <p><strong>Comment le Tank Confort y repond:</strong> Bretelles larges 4cm (repartition du poids), zero armature/broche/agrafe, dos lisse sans fermeture, tissu 95% coton doux.</p>
+          <p><strong>Niveau de conscience:</strong> <span class="tag tag-solution">Stage 3 -- Solution-Aware</span> La cliente sait qu'elle a mal et que des alternatives wireless existent. L'ad doit PROUVER la difference, pas expliquer le probleme.</p>
+        </div>
+      </details>
+
+      <details open>
+        <summary><strong>#2 -- Le confort absolu / l'oubli du vetement</strong> (Urgence: 9/10)</summary>
+        <div class="accordion-content">
+          <p><strong>Ce que la cliente dit:</strong> "Je veux mettre quelque chose le matin et completement oublier que je le porte."</p>
+          <p>769 mentions (30.3% de TOUTES les reviews). Le mot "comfortable" est le mot #1 par volume. L'urgence est a 9 et non 10 parce que le confort est un desir de PRESENCE (je veux quelque chose de bien) tandis que la douleur est un desir d'ABSENCE (je veux que ca arrete) -- et le cerveau priorise l'absence de douleur avant la presence de plaisir.</p>
+          <blockquote><p>So darn comfortable, I forget I am wearing a bra</p><cite>-- Anonyme, Amazon reviews</cite></blockquote>
+        <div class="trad-fr">Tellement confortable que j'oublie que je porte un bra</div>
+          <blockquote><p>Never thought a bra could be so comfortable ALL DAY. Very pleased with this purchase!</p><cite>-- Marilyn, Trustpilot/TrueKind</cite></blockquote>
+        <div class="trad-fr">J'aurais jamais pensé qu'un bra pouvait être aussi confortable TOUTE LA JOURNÉE. Très satisfaite de cet achat !</div>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>#3 -- L'invisibilite sous les vetements</strong> (Urgence: 8/10) | <strong>#4 -- Le support sans armature</strong> (Urgence: 8/10)</summary>
+        <div class="accordion-content">
+          <p><strong>Invisibilite:</strong> 307 mentions (12.1%). La femme ne veut pas impressionner; elle veut etre INVISIBLE. L'invisibilite du sous-vetement = la disparition de la vulnerabilite.</p>
+          <p><strong>Support sans armature:</strong> 250+ mentions composites. C'est la tension fondamentale du marche: les femmes croient que support = rigidite. Le Tank Confort reconcilie les deux.</p>
+          <blockquote><p>No underwire but still has amazing support.</p><cite>-- Sutty, Trustpilot/TrueKind</cite></blockquote>
+        <div class="trad-fr">Pas d'armature mais un support incroyable quand même.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>#5 a #10 -- Fin de quete, Beaute, Coussinets, Routine, Confiance d'achat, Liberation</strong></summary>
+        <div class="accordion-content">
+          <table>
+            <tr><th>Rang</th><th>Desir</th><th>Urgence</th><th>Niveau conscience</th></tr>
+            <tr><td>5</td><td>La fin de la quete (trouver LE produit)</td><td>7/10</td><td><span class="tag tag-solution">3-4</span></td></tr>
+            <tr><td>6</td><td>Se sentir belle malgre le corps qui change</td><td>7/10</td><td><span class="tag tag-unaware">1-2</span></td></tr>
+            <tr><td>7</td><td>Ne plus manipuler les coussinets</td><td>7/10</td><td><span class="tag tag-problem">2-3</span></td></tr>
+            <tr><td>8</td><td>Simplifier la routine du matin</td><td>6/10</td><td><span class="tag tag-unaware">1-2</span></td></tr>
+            <tr><td>9</td><td>Confiance d'acheter sans risque</td><td>6/10</td><td><span class="tag tag-product">4</span></td></tr>
+            <tr><td>10</td><td>Ne plus jamais porter un bra traditionnel</td><td>5/10</td><td><span class="tag tag-problem">2</span></td></tr>
+          </table>
+        </div>
+      </details>
+    </div>
+
+    <!-- 6 NIVEAUX DE SOUFFRANCE -->
+    <div class="section" id="c-souffrance">
+      <div class="section-header">
+        <span class="section-icon">&#128548;</span>
+        <h2 class="section-title">Les 6 Niveaux de Souffrance</h2>
+      </div>
+      <div class="section-intro colette">
+        <strong>C'est quoi les "niveaux de souffrance"?</strong> La souffrance d'une cliente ne se limite pas a "j'ai mal aux epaules." Elle souffre sur PLUSIEURS dimensions en meme temps: physique (les marques rouges), emotionnelle (la frustration accumulee), sociale (la honte quand les gens voient son bourrelet), financiere (l'argent gaspille en bras inutiles), temporelle (les heures perdues a chercher) et identitaire (l'ecart entre qui elle est et qui elle veut etre). Chaque niveau est un angle publicitaire independant. Quand on en active 2-3 en meme temps dans une pub, l'emotion est irresistible.
+      </div>
+
+      <div class="souffrance-level">
+        <div class="souffrance-num s1">1</div>
+        <div><strong>PHYSIQUE</strong> -- Les marques rouges, les bretelles qui creusent, l'armature qui pince. Le soir, quand elle enleve son bra, elle voit les preuves. Le matin, elle sait qu'elle va remettre l'instrument de torture. <em>Emotion dominante: RESIGNATION DOULOUREUSE.</em></div>
+      </div>
+
+      <div class="souffrance-level">
+        <div class="souffrance-num s2">2</div>
+        <div><strong>EMOTIONNELLE</strong> -- Frustration accumulee sur 30-50 ans. Chaque bra essaye qui ne fittait pas. Chaque commande retournee. Chaque promesse marketing brisee. Elle n'est pas en colere -- elle est EPUISEE. <em>Emotion dominante: FATIGUE EMOTIONNELLE.</em></div>
+      </div>
+
+      <div class="souffrance-level">
+        <div class="souffrance-num s3">3</div>
+        <div><strong>SOCIALE</strong> -- Le bourrelet dans le dos visible sous la blouse. L'ajustement du bra en public. Les nipples visibles a travers le tissu. La honte n'est JAMAIS nommee directement. "Mon ventre," "mes seins qui tombent" -- la honte est codee dans le vocabulaire de l'apparence. <em>Emotion dominante: HONTE SILENCIEUSE.</em></div>
+      </div>
+
+      <div class="souffrance-level">
+        <div class="souffrance-num s4">4</div>
+        <div><strong>FINANCIERE</strong> -- Chaque bra qui ne fit pas = argent perdu. Ouvrir le tiroir et voir 15 bras dont 2 sont portables. 500$ depenses en 5 ans pour ne toujours pas avoir trouve le bon. <em>Emotion dominante: COLERE RATIONNELLE.</em></div>
+      </div>
+
+      <div class="souffrance-level">
+        <div class="souffrance-num s5">5</div>
+        <div><strong>TEMPORELLE</strong> -- 45 minutes en cabine sous eclairage fluorescent. 15 minutes chaque lundi a replacer les coussinets (13 heures par an). Les matins ou elle perd 5 minutes a se battre avec l'agrafe. <em>Emotion dominante: LASSITUDE EXISTENTIELLE.</em></div>
+      </div>
+
+      <div class="souffrance-level">
+        <div class="souffrance-num s6">6</div>
+        <div><strong>IDENTITAIRE</strong> -- L'ecart entre qui elle EST (une femme qui endure en silence, qui a normalise la douleur) et qui elle VEUT ETRE (une femme libre, a l'aise, qui enfile un vetement le matin et n'y repense plus). C'est la SOURCE de toute la souffrance. <em>Emotion dominante: DEUIL + ESPOIR.</em></div>
+      </div>
+
+      <h3>Parcours de souffrance optimal par type de trafic</h3>
+      <div class="schema-box">COLD TRAFFIC (Unaware + Problem-Aware):
+  Physique -> Emotionnelle -> Identitaire
+  "Les marques rouges -> T'es pas folle -> C'est pas ton corps le probleme"
+
+WARM TRAFFIC (Solution-Aware):
+  Physique -> Sociale -> Emotionnelle
+  "Zero armature -> Personne voit rien -> 769 femmes ont dit comfortable"
+
+HOT TRAFFIC (Product-Aware + Most-Aware):
+  Financiere -> Temporelle -> Identitaire
+  "Echange gratuit -> Plus jamais chercher -> T'as endure 30 ans. Essaie."</div>
+    </div>
+
+    <!-- CROYANCES NECESSAIRES -->
+    <div class="section" id="c-croyances">
+      <div class="section-header">
+        <span class="section-icon">&#129504;</span>
+        <h2 class="section-title">Croyances Necessaires</h2>
+      </div>
+      <div class="section-intro colette">
+        <strong>C'est quoi les "croyances necessaires"?</strong> Avant d'acheter, une cliente doit CROIRE certaines choses. Si elle ne les croit pas, elle n'achete pas. C'est comme un escalier: chaque marche est une croyance, et la cliente doit monter chaque marche dans l'ordre pour arriver a l'achat. Si on saute une marche, elle tombe. Par exemple: si elle croit encore que "c'est normal d'avoir mal avec un bra", elle n'est pas prete a entendre que notre produit est different. Il faut d'abord BRISER cette croyance.
+      </div>
+
+      <div class="one-belief colette">"Le probleme n'est pas mon corps -- c'est le concept meme du soutien-gorge qui est defaillant."</div>
+
+      <p>Quand la femme adopte cette croyance, trois choses se produisent: (1) elle arrete de se blamer, (2) elle devient ouverte a une alternative radicale, (3) elle comprend pourquoi TOUTES ses experiences passees ont echoue.</p>
+
+      <h3>L'echelle des 6 croyances</h3>
+      <div class="schema-box">CROYANCE #1: "Les bras traditionnels sont concus pour blesser"
+    | La femme comprend que la douleur n'est pas inevitable
+    v
+CROYANCE #2: "Le confort et le support ne sont PAS contradictoires"
+    | La femme accepte qu'une alternative wireless PEUT supporter
+    v
+CROYANCE #3: "Le systeme bonnet + bande est obsolete"
+    | La femme accepte que le sizing S-2XL est plus simple ET plus fiable
+    v
+CROYANCE #4: "Les coussinets amovibles sont un defaut, pas une feature"
+    | La femme comprend que les coussinets cousus resolvent LE probleme
+    v
+CROYANCE #5: "Une marque peut meriter ma confiance"
+    | La femme fait confiance a la politique d'echange gratuit
+    v
+CROYANCE #6: "Je merite d'etre confortable -- c'est pas un luxe"
+    | La femme se donne la PERMISSION d'agir -> CONVERSION</div>
+
+      <details open>
+        <summary><strong>Croyance #1 -- "Les bras traditionnels sont concus pour blesser"</strong></summary>
+        <div class="accordion-content">
+          <p><strong>L'objection qu'elle combat:</strong> "C'est normal d'avoir mal avec un bra."</p>
+          <p><strong>La preuve qu'on utilise:</strong> Photo de marques rouges. "She stopped wearing bras five years ago and the dents in her shoulders still haven't gone away." Statistique: "80% des femmes portent la mauvaise taille de bra" -- le systeme est CONCU pour echouer.</p>
+          <p><strong>Moment dans le funnel:</strong> COLD traffic. C'est la porte d'entree. Tant que la femme croit que la douleur est normale, elle ne cherche pas d'alternative.</p>
+          <p><strong>L'histoire qui cree le declic:</strong> "Ma mere portait un bra a armature chaque jour de sa vie. Un jour, je l'ai vue enlever le sien le soir -- j'ai vu les marques rouges sur ses epaules, les memes marques que j'avais sur les miennes. Deux generations de femmes, meme douleur, meme silence. Ce soir-la, j'ai compris: c'est pas nous le probleme."</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>Croyance #2 -- "Le confort et le support ne sont PAS contradictoires"</strong></summary>
+        <div class="accordion-content">
+          <p><strong>L'objection qu'elle combat:</strong> "Sans armature, ca peut pas tenir."</p>
+          <p><strong>La preuve:</strong> "No underwire but still has amazing support." -- Sutty. "It gave me more support than I thought" -- Robin B. La surprise de Robin = la preuve que la croyance limitante existait.</p>
+          <p><strong>Comment l'installer:</strong> Demontrer visuellement. Video de profil avant/apres. "Pas d'armature. Pas de broche. Mais ca tient."</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>Croyances #3 a #6</strong></summary>
+        <div class="accordion-content">
+          <table>
+            <tr><th>Croyance</th><th>Objection combattue</th><th>Preuve</th></tr>
+            <tr><td>#3 Le systeme bonnet + bande est obsolete</td><td>"La taille va etre fausse"</td><td>773 mentions de sizing problems. "Les t-shirts se vendent en S-M-L-XL. Personne n'a jamais eu besoin de mesurer un bonnet."</td></tr>
+            <tr><td>#4 Les coussinets amovibles sont un defaut</td><td>"Ca va se deformer au lavage"</td><td>288 mentions du MEME probleme chez tous les concurrents. "Cousus = bougent jamais."</td></tr>
+            <tr><td>#5 Une marque peut meriter ma confiance</td><td>"C'est probablement un scam"</td><td>Echange gratuit + service humain en FR + zero abonnement cache</td></tr>
+            <tr><td>#6 Je merite d'etre confortable</td><td>"A mon age, c'est trop tard"</td><td>"78 and finally found something that actually supports me!" Il n'est JAMAIS trop tard.</td></tr>
+          </table>
+        </div>
+      </details>
+    </div>
+
+    <!-- MECANISMES UNIQUES -->
+    <div class="section" id="c-mecanismes">
+      <div class="section-header">
+        <span class="section-icon">&#9881;</span>
+        <h2 class="section-title">Mecanismes Uniques</h2>
+      </div>
+      <div class="section-intro colette">
+        <strong>C'est quoi un "mecanisme unique"?</strong> C'est l'explication de POURQUOI notre produit marche et pourquoi les autres ne marchent pas. Il y a deux parties: l'UMP (Unique Mechanism of the Problem -- pourquoi le probleme existe) et l'UMS (Unique Mechanism of the Solution -- comment on le resout). C'est la reponse a la question: "Pourquoi CA et pas autre chose?" Quand tu comprends le mecanisme, tu ne peux plus voir les alternatives de la meme facon. C'est le moment ou le client se dit: "Ahhh, c'est pour CA que rien marchait avant!"
+      </div>
+
+      <h3>UMP -- Le Systeme 2-Points</h3>
+      <p>Chaque soutien-gorge traditionnel repose sur un meme defaut fondamental: <strong>tout le poids de la poitrine repose sur 2 petits points de pression</strong> (bretelles fines de 5-10mm) + 1 bande de compression autour du thorax. C'est le Systeme 2-Points. Deux ficelles qui portent tout. Une bande qui comprime. Depuis 100 ans.</p>
+
+      <div class="schema-box">Bretelles fines -> concentrent la pression -> creusent les epaules
+        |
+Bande elastique -> comprime le thorax -> cree des bourrelets
+        |
+Armatures -> ajoutees pour compenser -> blessent le sternum
+        |
+La femme conclut: "C'est mon corps le probleme"
+        |
+Elle achete un AUTRE bra base sur le meme Systeme 2-Points
+        |
+MEME RESULTAT</div>
+
+      <h3>UMS -- Le Support Enveloppant</h3>
+      <p><strong>Metaphore simple:</strong> "Au lieu de suspendre ta poitrine a 2 ficelles, on l'enveloppe dans le vetement."</p>
+      <p>Le Support Enveloppant repose sur 4 innovations qui fonctionnent EN SYSTEME:</p>
+      <table>
+        <tr><th>Innovation</th><th>Systeme 2-Points (bra)</th><th>Support Enveloppant (Tank Confort)</th></tr>
+        <tr><td>Bretelles</td><td>2 ficelles de 5mm = 2 points de pression</td><td>Bretelles larges 4cm = repartition sur toute l'epaule</td></tr>
+        <tr><td>Dos</td><td>Bande elastique + agrafes = compression</td><td>Dos lisse sans agrafe = zero compression</td></tr>
+        <tr><td>Structure</td><td>Armature metallique = 3eme point de douleur</td><td>Zero armature, zero broche, zero agrafe</td></tr>
+        <tr><td>Coussinets</td><td>Amovibles = bougent a chaque lavage</td><td>COUSUS = ne bougent jamais</td></tr>
+        <tr><td>Sizing</td><td>Bonnet + bande = incomprehensible pour 80%</td><td>S-2XL = comme un t-shirt</td></tr>
+        <tr><td>Tissu</td><td>Souvent transparent</td><td>Opaque mat double epaisseur</td></tr>
+      </table>
+
+      <h3>Positionnement: Vehicle Switch</h3>
+      <p>Le Tank Confort ne dit PAS "voici un meilleur bra." Il dit: <strong>"Voici un vetement qui remplace le bra."</strong> C'est un changement de CATEGORIE. Le marche du bra "confortable" a ete promis 10,000 fois par Maggie's, TrueKind, Shapermint. Les femmes n'y croient plus. Presenter le Tank Confort comme un VETEMENT le sort de la categorie entierement.</p>
+    </div>
+
+    <!-- STRATEGIE DR -->
+    <div class="section" id="c-strategie">
+      <div class="section-header">
+        <span class="section-icon">&#128640;</span>
+        <h2 class="section-title">Strategie Direct Response</h2>
+      </div>
+      <div class="section-intro colette">
+        <strong>C'est quoi le "Direct Response"?</strong> C'est une facon de faire de la publicite ou chaque pub est concue pour provoquer une ACTION immediate (un clic, un achat). Contrairement a la pub de marque (Nike, Coca-Cola) qui construit une image sur des annees, le Direct Response veut des resultats MESURABLES: combien de personnes ont vu la pub, combien ont clique, combien ont achete, et combien ca a coute par achat. Ce document est le plan de bataille complet pour lancer et scaler les publicites Colette Confort.
+      </div>
+
+      <h3>La Big Idea</h3>
+      <div class="highlight-box colette">"Le soutien-gorge est un defaut de design vieux de 100 ans. Le Tank Confort le remplace par un vetement."</div>
+      <p>En une phrase: <strong>Tu ne portes pas un meilleur bra. Tu quittes le bra.</strong></p>
+
+      <h3>5 Variations a tester</h3>
+      <table>
+        <tr><th>#</th><th>Variation</th><th>Angle</th><th>Format</th></tr>
+        <tr><td>V1</td><td>"Le soutien-gorge est casse. Pas toi."</td><td>Reframe identitaire</td><td>Headline LP + statique</td></tr>
+        <tr><td>V2</td><td>"2 petites ficelles portent tout le poids depuis 30 ans."</td><td>Mecanisme probleme</td><td>Video hook + VSL</td></tr>
+        <tr><td>V3</td><td>"769 femmes ont dit 'comfortable.' Pas 'ok.' COMFORTABLE."</td><td>Preuve sociale</td><td>Statique + carrousel</td></tr>
+        <tr><td>V4</td><td>"C'est pas un bra. C'est un vetement avec le support dedans."</td><td>Vehicle switch</td><td>Video UGC + statique</td></tr>
+        <tr><td>V5</td><td>"T'as endure 30 ans. T'as le droit d'arreter."</td><td>Permission emotionnelle</td><td>Video temoignage + email</td></tr>
+      </table>
+
+      <h3>Structure du funnel par awareness</h3>
+      <table>
+        <tr><th>Etape</th><th>Budget</th><th>Objectif</th><th>Angles</th><th>CTA</th></tr>
+        <tr><td><span class="tag tag-unaware">COLD</span> Unaware + Problem-Aware</td><td>50%</td><td>Faire passer de "c'est normal" a "il y a une solution"</td><td>Marques Rouges, Reframe Corps, Systeme 2-Points</td><td>"Decouvre le Tank Confort"</td></tr>
+        <tr><td><span class="tag tag-solution">WARM</span> Solution-Aware</td><td>30%</td><td>Prouver que CELLE-CI est la bonne</td><td>Scepticisme Converti, Coussinets Cousus, DD Uni-Boob</td><td>"Achete 2, Recois 1 Gratuite"</td></tr>
+        <tr><td><span class="tag tag-product">HOT</span> Product-Aware + Most-Aware</td><td>20%</td><td>Convertir. Eliminer les dernieres objections.</td><td>Cadeau Maman, Le Dernier Bra, Offre B2G1</td><td>"Commande maintenant -- Echange gratuit"</td></tr>
+      </table>
+
+      <h3>Structure VSL (3 minutes)</h3>
+      <table>
+        <tr><th>Segment</th><th>Duree</th><th>Contenu</th></tr>
+        <tr><td>HOOK</td><td>0:00-0:15</td><td>"C'est pas ton corps le probleme. C'est ton bra." + visuel marques rouges</td></tr>
+        <tr><td>AGITATION</td><td>0:15-0:45</td><td>Enumeration douleurs: bretelles, armatures, bande, marques. Le rituel du soir.</td></tr>
+        <tr><td>MECANISME</td><td>0:45-1:15</td><td>Le Systeme 2-Points. "Tout le poids sur 2 ficelles de 5mm."</td></tr>
+        <tr><td>REVELATION</td><td>1:15-1:45</td><td>Le Support Enveloppant: bretelles 4cm + coussinets cousus + tissu opaque</td></tr>
+        <tr><td>PREUVE</td><td>1:45-2:15</td><td>"769 femmes ont dit comfortable." Demos. Temoignages.</td></tr>
+        <tr><td>PERMISSION</td><td>2:15-2:45</td><td>"T'as endure 30 ans. T'as le droit d'arreter."</td></tr>
+        <tr><td>CTA</td><td>2:45-3:00</td><td>"Achete 2, recois 1 gratuite. Echange gratuit."</td></tr>
+      </table>
+    </div>
+
+    <!-- 15 ANGLES -->
+    <div class="section" id="c-angles">
+      <div class="section-header">
+        <span class="section-icon">&#127919;</span>
+        <h2 class="section-title">15 Angles de Pub</h2>
+      </div>
+      <div class="section-intro colette">
+        <strong>C'est quoi un "angle de pub"?</strong> C'est une facon specifique de parler du produit. Le Tank Confort resout plusieurs problemes a la fois, mais chaque publicite ne devrait parler que d'UN seul probleme a la fois. L'angle "Marques Rouges" parle des bretelles qui creusent. L'angle "Coussinets Cousus" parle du probleme de lavage. L'angle "Cadeau pour Maman" cible la fille qui veut offrir a sa mere. Chaque angle est adapte a un type de cliente et a un moment precis de son parcours d'achat. On teste 15 angles, on garde ceux qui marchent.
+      </div>
+
+      <table>
+        <tr><th>#</th><th>Angle</th><th>Type</th><th>Emotion</th><th>Awareness</th><th>Avatar</th><th>TAM</th></tr>
+        <tr><td>1</td><td><strong>Les Marques Rouges</strong></td><td>Probleme/Solution</td><td>Frustration / Douleur</td><td><span class="tag tag-problem">2-3</span></td><td>Diane</td><td>MASSIF</td></tr>
+        <tr><td>2</td><td><strong>Le Scepticisme Converti</strong></td><td>Storytelling</td><td>Scepticisme -> Soulagement</td><td><span class="tag tag-solution">3</span></td><td>Diane</td><td>MASSIF</td></tr>
+        <tr><td>3</td><td><strong>L'Ennemi Invisible (Systeme 2-Points)</strong></td><td>Ennemi Commun</td><td>Colere / Revelation</td><td><span class="tag tag-problem">2</span></td><td>Diane + Karine</td><td>MASSIF</td></tr>
+        <tr><td>4</td><td><strong>Les Coussinets Cousus</strong></td><td>Secret/Revelation</td><td>Curiosite -> Revelation</td><td><span class="tag tag-solution">3-4</span></td><td>Diane + Karine</td><td>MOYEN</td></tr>
+        <tr><td>5</td><td><strong>L'Avant/Apres Silhouette</strong></td><td>Avant/Apres</td><td>Honte -> Fierte</td><td><span class="tag tag-problem">2-3</span></td><td>Diane</td><td>MASSIF</td></tr>
+        <tr><td>6</td><td><strong>Le Dernier Jour d'Armature</strong></td><td>Urgence</td><td>Liberation</td><td><span class="tag tag-problem">2-3</span></td><td>Diane</td><td>MASSIF</td></tr>
+        <tr><td>7</td><td><strong>La Curiosite du Chum</strong></td><td>Curiosite</td><td>Validation sociale</td><td><span class="tag tag-solution">3</span></td><td>Diane</td><td>MOYEN</td></tr>
+        <tr><td>8</td><td><strong>Le Contrarian (Pas un Bra)</strong></td><td>Contrarian</td><td>Revelation / Empowerment</td><td><span class="tag tag-problem">2-3</span></td><td>Diane + Karine</td><td>MOYEN</td></tr>
+        <tr><td>9</td><td><strong>Le Temoignage de la 50ieme Annee</strong></td><td>Temoignage</td><td>Espoir / Soulagement</td><td><span class="tag tag-solution">3-4</span></td><td>Diane</td><td>NICHE</td></tr>
+        <tr><td>10</td><td><strong>La Preuve par le Nombre</strong></td><td>Social Proof</td><td>Confiance / FOMO</td><td><span class="tag tag-solution">3-4</span></td><td>Diane + Karine</td><td>NICHE</td></tr>
+        <tr><td>11</td><td><strong>La Tribu des Ecoeuries</strong></td><td>Identite/Tribu</td><td>Appartenance</td><td><span class="tag tag-solution">3</span></td><td>Diane + Karine</td><td>MOYEN</td></tr>
+        <tr><td>12</td><td><strong>La Honte du Miroir</strong></td><td>Honte</td><td>Deculpabilisation</td><td><span class="tag tag-unaware">1-2</span></td><td>Diane</td><td>NICHE</td></tr>
+        <tr><td>13</td><td><strong>Le Face-a-Face (Tank vs Bra)</strong></td><td>Comparaison</td><td>Revelation / Conviction</td><td><span class="tag tag-solution">3-4</span></td><td>Diane + Karine</td><td>MOYEN</td></tr>
+        <tr><td>14</td><td><strong>Le Cadeau qui Soulage</strong></td><td>Cadeau (Q4)</td><td>Amour / Generosite</td><td><span class="tag tag-solution">3-4</span></td><td>Karine</td><td>MASSIF</td></tr>
+        <tr><td>15</td><td><strong>Ton Corps est Correct</strong></td><td>Body Positive</td><td>Validation / Liberation</td><td><span class="tag tag-unaware">1-2</span></td><td>Diane + Karine</td><td>NICHE</td></tr>
+      </table>
+
+      <details open>
+        <summary><strong>Angle #1 -- Les Marques Rouges (TAM MASSIF -- tester en PREMIER)</strong></summary>
+        <div class="accordion-content">
+          <p><strong>L'idee:</strong> Les marques rouges sur les epaules sont la preuve physique de 30+ ans d'inconfort normalise. On nomme la douleur visible, on la valide, puis on presente les bretelles 4cm comme la fin de cette souffrance.</p>
+          <p><strong>Pourquoi ca marche:</strong> 80%+ des femmes 45+ ont des marques de bretelles. C'est une douleur UNIVERSELLE. L'image des marques rouges est un declencheur emotionnel qui stoppe le scroll instantanement.</p>
+          <p><strong>Hook:</strong> "Apres 30 ans, les marques sont encore la."</p>
+          <p><strong>Lead:</strong> "Les marques rouges. Ca fait 30 ans qu'elles sont la. Pis ca fait 30 ans que tu te dis que c'est normal. C'est pas normal. C'est juste des bretelles de 5 millimetres qui portent tout le poids de ta poitrine depuis toujours."</p>
+          <p><strong>Format:</strong> Statique (gros plan epaule) + Video Lifestyle 15 sec</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>Angle #2 -- Le Scepticisme Converti (TAM MASSIF)</strong></summary>
+        <div class="accordion-content">
+          <p><strong>L'idee:</strong> Le scepticisme de la cliente EST le hook. On part de la mefiance pour traverser la decouverte jusqu'au soulagement.</p>
+          <p><strong>Hook:</strong> "Fait que je l'ai commandee jusse pour me prouver que c'etait de la marde."</p>
+          <p><strong>Lead:</strong> "J'ai essaye 20 bras en 10 ans. Le vingtieme, c'etait une camisole vue sur Facebook. Je me suis dit: encore une patente made in China. Fait que je l'ai commandee jusse pour avoir raison. Sauf que les coussinets bougent pas. Pour vrai."</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- HOOKS -->
+    <div class="section" id="c-hooks">
+      <div class="section-header">
+        <span class="section-icon">&#127907;</span>
+        <h2 class="section-title">Hooks</h2>
+      </div>
+      <div class="section-intro colette">
+        <strong>C'est quoi un "hook"?</strong> Un hook, c'est la phrase d'accroche d'une publicite -- les 3 premieres secondes d'une video ou la premiere ligne d'un texte. C'est le moment ou la personne decide si elle continue a regarder ou si elle continue a scroller. Un bon hook STOPPE le scroll en disant quelque chose que la cliente reconnait immediatement: sa douleur, sa frustration, ou sa curiosite. Nos hooks sont ecrits en FR-QC joual parce que c'est le langage naturel de nos clientes. Chaque hook est base sur un verbatim reel.
+      </div>
+
+      <h3>Top 10 par potentiel de conversion</h3>
+      <div class="hook-card">
+        <div class="hook-num">#1</div>
+        <div><div class="hook-text">"C'est pas ton corps le probleme. C'est ton bra."</div>
+        <div class="hook-meta">Frustration/Colere -- Touche TOUTES les femmes 45+. Deculpabilise + redirige la colere vers le bra.</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">#2</div>
+        <div><div class="hook-text">"Tu sais pourquoi tes coussinets finissent tout croches?"</div>
+        <div class="hook-meta">Curiosite -- 288+ femmes ont vecu ce probleme. Ouvre directement sur le differenciateur (cousus).</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">#3</div>
+        <div><div class="hook-text">"Mon chum m'a dit: coudonc, t'as-tu maigri?"</div>
+        <div class="hook-meta">Curiosite / Desir -- Validation sociale = declencheur #1 chez les 45+. L'angle le plus partage.</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">#4</div>
+        <div><div class="hook-text">"Ton bra te fait des bourrelets que t'as meme pas."</div>
+        <div class="hook-meta">Peur / Revelation -- La femme blame son corps alors que c'est le vetement. Stop-scroll garanti.</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">#5</div>
+        <div><div class="hook-text">"J'ai essaye 20 bras en 10 ans. Tous d'la marde."</div>
+        <div class="hook-meta">Frustration -- Identification IMMEDIATE. 100% des femmes 45+ ont vecu ca.</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">#6</div>
+        <div><div class="hook-text">"J'oublie que je le porte. Toute la journee."</div>
+        <div class="hook-meta">Desir -- 769 mentions de "comfortable". Promesse simple, credible, verbatim exact.</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">#7</div>
+        <div><div class="hook-text">"Zero armature. Zero broche. Zero agrafe."</div>
+        <div class="hook-meta">Desir -- 3 mots de negation = liberation. Puissant en text on screen.</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">#8</div>
+        <div><div class="hook-text">"Les coussinets sont encore tout torchus apres le lavage."</div>
+        <div class="hook-meta">Frustration -- 288 mentions. Le mot "torchus" = joual pur, stop-scroll au QC.</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">#9</div>
+        <div><div class="hook-text">"Ton bra te laisse des marques rouges chaque soir."</div>
+        <div class="hook-meta">Peur -- Douleur quotidienne universelle. Chaque femme peut verifier CE SOIR.</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">#10</div>
+        <div><div class="hook-text">"Ca fait 50 ans que je cherchais. C'est fini."</div>
+        <div class="hook-meta">Desir -- Arc emotionnel complet en 10 mots. "Fini" = soulagement instantane.</div></div>
+      </div>
+    </div>
+
+    <!-- GARANTIE -->
+    <div class="section" id="c-garantie">
+      <div class="section-header">
+        <span class="section-icon">&#128737;</span>
+        <h2 class="section-title">Garantie</h2>
+      </div>
+      <div class="section-intro colette">
+        <strong>C'est quoi la strategie de garantie?</strong> La garantie n'est pas juste une politique de retour. C'est un outil de VENTE. Quand une cliente hesite a acheter en ligne, sa peur #1 est: "Et si ca marche pas, je suis pognee avec." La garantie ELIMINE ce risque. Plus la garantie est genereuse, plus la cliente se dit: "Ils doivent etre vraiment confiants dans leur produit." Chez Colette, on utilise la "Triple Promesse" -- inspiree du framework d'Alex Hormozi ($100M Offers).
+      </div>
+
+      <h3>La Triple Promesse Colette (recommandee)</h3>
+      <div class="card">
+        <div class="card-title">Promesse #1 -- La bonne taille, garanti.</div>
+        <p>La taille est pas bonne? On t'echange gratuit. Tu gardes celle que t'as. <em>(30 jours)</em></p>
+        <p><strong>Objection neutralisee:</strong> "La taille va etre fausse" (773 mentions, 30.5%)</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Promesse #2 -- Fini les marques rouges.</div>
+        <p>Si t'as encore des marques rouges apres 7 jours de port, on te rembourse au complet. <em>(7 jours de port)</em></p>
+        <p><strong>Objection neutralisee:</strong> "Ca va etre la meme marde que d'habitude" (scepticisme chronique)</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Promesse #3 -- Le produit dure.</div>
+        <p>Les coussinets se decousent dans les 6 premiers mois? On te remplace le tank gratuit. <em>(6 mois)</em></p>
+        <p><strong>Objection neutralisee:</strong> "Ca va se deformer au lavage"</p>
+      </div>
+      <div class="highlight-box colette">Tu risques rien. On risque tout.</div>
+      <p><strong>Cout estime:</strong> ~3-5$ par commande. La Promesse #1 coute ~1.70$ (echanges). La Promesse #2 coute quasi rien (les bretelles 4cm eliminent mecaniquement le probleme). La Promesse #3 coute quasi rien (coussinets cousus = pas de defaut en usage normal).</p>
+    </div>
+
+  </div><!-- fin section-colette -->
+
+  <!-- ============================================================ -->
+  <!-- NUVOPET / PURECOAT -->
+  <!-- ============================================================ -->
+  <div class="brand-section" id="section-nuvopet">
+
+    <div class="section" id="n-avatar">
+      <div class="section-header">
+        <span class="section-icon">&#128054;</span>
+        <h2 class="section-title">Avatar 360</h2>
+      </div>
+      <div class="section-intro nuvopet">
+        Chez Nuvopet, on a identifie <strong>2 avatars</strong> a partir de centaines de reviews sur Amazon, Reddit, forums de races (GoldenRetrieverForum, GermanShepherds.com), YouTube, Trustpilot et sites specialises. Le marche du toilettage canin est domine par les femmes (80% des acheteuses), mais les proprietaires de races nordiques (Husky, Malamute) ont un profil plus mixte.
+      </div>
+
+      <div class="avatar-card">
+        <div class="avatar-name" style="color: var(--accent-nuvopet);">SOPHIE</div>
+        <div class="avatar-subtitle">La maman de Golden/Lab/Berger Allemand -- 30-45 ans, QC banlieue</div>
+        <div class="avatar-grid">
+          <div class="avatar-field"><label>Age</label><span>30-45 ans</span></div>
+          <div class="avatar-field"><label>Situation</label><span>En couple, 1-2 enfants (3-10 ans)</span></div>
+          <div class="avatar-field"><label>Race du chien</label><span>Golden Retriever, Labrador, ou Berger Allemand</span></div>
+          <div class="avatar-field"><label>Awareness</label><span><span class="tag tag-solution">Stage 3 -- Solution-Aware</span></span></div>
+        </div>
+        <h4>Ses frustrations</h4>
+        <blockquote><p>C'est rendu que mon divan est plus beige, y'est brun poil.</p></blockquote>
+        <blockquote><p>J'ai achete le FURminator pis y'a arrache une touffe de poil a Charlie. Pu jamais.</p></blockquote>
+        <blockquote><p>Ma belle-mere est venue pis a s'est relevee du sofa avec le cul couvert de poils. J'ai voulu mourir.</p></blockquote>
+        <h4>Ses desirs</h4>
+        <p>1. Retrouver le controle de sa maison. 2. Un pelage qui fait des compliments. 3. Brosser sans culpabilite. 4. Simplifier sa vie (5 min/semaine). 5. Prouver qu'elle est une bonne proprietaire.</p>
+      </div>
+
+      <div class="avatar-card">
+        <div class="avatar-name" style="color: var(--accent-nuvopet);">ALEX</div>
+        <div class="avatar-subtitle">Le passionne de Husky/Malamute/Samoyed -- 25-40 ans</div>
+        <div class="avatar-grid">
+          <div class="avatar-field"><label>Age</label><span>25-40 ans</span></div>
+          <div class="avatar-field"><label>Situation</label><span>Celibataire ou en couple, le chien EST l'enfant</span></div>
+          <div class="avatar-field"><label>Race du chien</label><span>Husky Siberien, Malamute, ou Samoyed</span></div>
+          <div class="avatar-field"><label>Awareness</label><span><span class="tag tag-product">Stage 3-4</span></span></div>
+        </div>
+        <blockquote><p>Mon Husky blow son coat pis on dirait qu'y neige dans mon salon.</p></blockquote>
+        <blockquote><p>Je pourrais me tricoter un deuxieme chien avec le poil que Luna perd par semaine.</p></blockquote>
+        <p><strong>Difference cle avec Sophie:</strong> Alex est sur TikTok et Reddit (pas Facebook). Son declencheur d'achat est de voir la Purecoat en action SUR UN HUSKY -- le "cloud" de sous-poil qui sort en masse.</p>
+      </div>
+    </div>
+
+    <div class="section" id="n-voix">
+      <div class="section-header">
+        <span class="section-icon">&#128172;</span>
+        <h2 class="section-title">Voix du Client</h2>
+      </div>
+      <div class="section-intro nuvopet">
+        Sources analysees: Amazon.com/ca, Chewy, Walmart, GoldenRetrieverForum.com, GermanShepherds.com, LabradorForums, Reddit (r/dogs, r/doggrooming, r/husky, r/goldenretrievers), Trustpilot, YouTube, PetScienceReview et 15+ autres sites specialises.
+      </div>
+
+      <h3>Les 10 problemes les plus frequents</h3>
+      <details open>
+        <summary><strong>#1 -- Le poil est PARTOUT dans la maison</strong> (80%+ des discussions)</summary>
+        <div class="accordion-content">
+          <blockquote><p>It's everywhere all over the furniture and my clothes! I will vacuum the couch and an hour later it will be covered in dog hair again!</p><cite>-- Chronicle Forums</cite></blockquote>
+        <div class="trad-fr">C'est partout sur les meubles et mes vêtements ! Je passe l'aspirateur sur le divan et une heure plus tard c'est encore couvert de poils de chien !</div>
+          <blockquote><p>I brush him every day, use silicone gloves to remove hair, and vacuum at least once a day. There's still always hair everywhere.</p><cite>-- BackyardChickens.com</cite></blockquote>
+        <div class="trad-fr">Je le brosse tous les jours, j'utilise des gants en silicone pour enlever les poils, et je passe l'aspirateur au moins une fois par jour. Y'a toujours des poils partout pareil.</div>
+          <p><strong>Insight:</strong> Ce n'est pas un probleme de chien. C'est un probleme de MAISON. Le client ne cherche pas un outil de toilettage -- il cherche a recuperer sa maison.</p>
+        </div>
+      </details>
+
+      <details open>
+        <summary><strong>#2 -- La brosse a lames coupe et endommage le poil de couverture</strong> (25+ mentions)</summary>
+        <div class="accordion-content">
+          <blockquote><p>The furminator basically has a razor blade between the tines, so the tines pull some of the loose coat out and the blade cuts the coat.</p><cite>-- Amazon.com, FURminator 1-2 etoiles</cite></blockquote>
+        <div class="trad-fr">Le FURminator a essentiellement une lame de rasoir entre les dents, donc les dents tirent une partie du poil mort et la lame coupe le pelage.</div>
+          <blockquote><p>The Furminator stripped my dog entirely of his overcoat just leaving his undercoat exposed; he looked bald and naked until his overcoat grew back.</p><cite>-- GermanShepherds.com</cite></blockquote>
+        <div class="trad-fr">Le FURminator a arraché complètement le poil de couverture de mon chien, laissant juste le sous-poil exposé ; il avait l'air chauve et nu jusqu'à ce que son poil repousse.</div>
+          <p><strong>Insight:</strong> C'est LA faille #1 du FURminator. Le mot "razor" revient constamment. Purecoat = "dents arrondies, pas de lames" est l'antithese parfaite.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>#3-#10 -- Irritation peau, Tire les poils, Plaques chauves, Qualite mediocre, Inefficace, Chien qui a peur, Prix eleve, Mue saisonniere</strong></summary>
+        <div class="accordion-content">
+          <table>
+            <tr><th>#</th><th>Probleme</th><th>Frequence</th><th>Verbatim cle</th></tr>
+            <tr><td>3</td><td>Irrite/gratte la peau</td><td>20+ mentions</td><td>"Scratched her skin and caused her pain the 2 times I used it."</td></tr>
+            <tr><td>4</td><td>Tire les poils douloureusement</td><td>18+ mentions</td><td>"It pulled too much -- and painfully -- on our long-hair dog."</td></tr>
+            <tr><td>5</td><td>Cree des plaques chauves</td><td>12+ mentions</td><td>"Bald spots that turned into skin infections requiring vet visits and antibiotics."</td></tr>
+            <tr><td>6</td><td>Qualite mediocre, casse vite</td><td>15+ mentions</td><td>"FURminator deshedding tools have been reported to break in less than 4 months."</td></tr>
+            <tr><td>7</td><td>Inefficace sur certains poils</td><td>12+ mentions</td><td>"The comb does not remove the hair and just combs through it."</td></tr>
+            <tr><td>8</td><td>Le chien a peur du brossage</td><td>10+ mentions</td><td>"My GSD hates being groomed."</td></tr>
+            <tr><td>9</td><td>Prix trop eleve</td><td>10+ mentions</td><td>"Expensive compared to basic brushes."</td></tr>
+            <tr><td>10</td><td>Mue saisonniere = cauchemar</td><td>Haute</td><td>"German Shepherds have two shedding seasons, each one lasts six months."</td></tr>
+          </table>
+        </div>
+      </details>
+    </div>
+
+    <div class="section" id="n-desires">
+      <div class="section-header">
+        <span class="section-icon">&#128150;</span>
+        <h2 class="section-title">Mass Desires</h2>
+      </div>
+      <div class="section-intro nuvopet">
+        Les 10 desirs profonds du proprietaire de chien a double pelage, classes par urgence et taille de marche.
+      </div>
+
+      <table>
+        <tr><th>Rang</th><th>Desir</th><th>Urgence</th><th>Tendance</th></tr>
+        <tr><td>1</td><td><strong>Recuperer le controle de ma maison</strong> -- "Arreter de passer l'aspirateur 3x/jour"</td><td>10/10</td><td>STABLE</td></tr>
+        <tr><td>2</td><td><strong>Proteger mon chien de la douleur</strong> -- "Brosser sans lui faire mal"</td><td>9/10</td><td>EN CROISSANCE</td></tr>
+        <tr><td>3</td><td><strong>Etre un bon proprietaire</strong> -- "Que les gens voient que je prends soin de mon chien"</td><td>9/10</td><td>EN CROISSANCE</td></tr>
+        <tr><td>4</td><td><strong>Vivre un moment de connexion</strong> -- "Le brossage comme rituel d'amour"</td><td>8/10</td><td>EN CROISSANCE</td></tr>
+        <tr><td>5</td><td><strong>Trouver LA solution definitive</strong> -- "La derniere brosse que j'achete"</td><td>8/10</td><td>STABLE</td></tr>
+        <tr><td>6</td><td><strong>Survivre a la saison de mue</strong></td><td>9/10 (saisonnier)</td><td>STABLE</td></tr>
+        <tr><td>7</td><td><strong>Eliminer la honte sociale du poil</strong></td><td>7/10</td><td>EN CROISSANCE</td></tr>
+        <tr><td>8</td><td><strong>Pelage magazine</strong> -- "Beau, brillant, sain"</td><td>7/10</td><td>STABLE</td></tr>
+        <tr><td>9</td><td><strong>Gagner du temps</strong> -- "5 minutes par semaine"</td><td>7/10</td><td>EN CROISSANCE</td></tr>
+        <tr><td>10</td><td><strong>Proteger la sante de la famille (allergies)</strong></td><td>6/10</td><td>EN CROISSANCE</td></tr>
+      </table>
+    </div>
+
+    <div class="section" id="n-souffrance">
+      <div class="section-header">
+        <span class="section-icon">&#128548;</span>
+        <h2 class="section-title">6 Niveaux de Souffrance</h2>
+      </div>
+
+      <div class="souffrance-level">
+        <div class="souffrance-num s1">1</div>
+        <div><strong>PHYSIQUE</strong> -- Le poil est un envahisseur de l'espace de vie. Sur les vetements, meubles, dans la nourriture, dans l'air. Pour les allergiques, c'est un probleme de sante. <em>"I will vacuum the couch and an hour later it will be covered in dog hair again!"</em></div>
+      </div>
+      <div class="souffrance-level">
+        <div class="souffrance-num s2">2</div>
+        <div><strong>EMOTIONNELLE</strong> -- Frustration chronique + culpabilite de blesser le chien + decouragement apres achats decevants + peur constante. <em>"I had seen more damaged skin and coat from Furminators than I cared to think about."</em></div>
+      </div>
+      <div class="souffrance-level">
+        <div class="souffrance-num s3">3</div>
+        <div><strong>SOCIALE</strong> -- Honte quand les invites voient les poils. Commentaires de la belle-famille. Auto-exclusion. <em>"I realized there was dog hair on my black shirt while on the way to meet friends."</em></div>
+      </div>
+      <div class="souffrance-level">
+        <div class="souffrance-num s4">4</div>
+        <div><strong>FINANCIERE</strong> -- Brosses inutiles (150$+), rouleaux adhesifs (100$/an), toiletteur (240-1200$/an), visite vet si blessure (100-400$+). <em>"A waste of money."</em></div>
+      </div>
+      <div class="souffrance-level">
+        <div class="souffrance-num s5">5</div>
+        <div><strong>TEMPORELLE</strong> -- Aspirateur 15-30 min/jour (91-182 heures/an!). Brossage inefficace 20-30 min/session. Pre-nettoyage avant chaque visite. <em>"5 minutes par semaine vs 15 minutes d'aspirateur PAR JOUR."</em></div>
+      </div>
+      <div class="souffrance-level">
+        <div class="souffrance-num s6">6</div>
+        <div><strong>IDENTITAIRE</strong> -- "Suis-je un bon proprietaire?" Le poil partout = signe d'echec. Le conflit entre "j'aime mon chien" et "je gere pas" cree une dissonance cognitive douloureuse. La Purecoat transforme l'identite: DE "submerge" A "gere comme un pro."</div>
+      </div>
+    </div>
+
+    <div class="section" id="n-croyances">
+      <div class="section-header">
+        <span class="section-icon">&#129504;</span>
+        <h2 class="section-title">Croyances Necessaires</h2>
+      </div>
+
+      <div class="one-belief nuvopet">"Le probleme n'est pas que ton chien perd du poil -- c'est que ta brosse COUPE le poil de surface au lieu de RETIRER le sous-poil mort."</div>
+
+      <div class="schema-box">CROYANCE #1: La mue est naturelle, pas un probleme de sante
+         |
+CROYANCE #2: Toutes les brosses ne se valent pas (lames vs dents arrondies)
+         |
+CROYANCE #3: Les brosses a lames COUPENT le poil sain
+         |
+CROYANCE #4: La Purecoat retire le sous-poil mort SANS couper
+         |
+CROYANCE #5: Mon chien peut AIMER le brossage
+         |
+CROYANCE #6: 5 minutes par semaine suffit -> ACHAT</div>
+    </div>
+
+    <div class="section" id="n-mecanismes">
+      <div class="section-header">
+        <span class="section-icon">&#9881;</span>
+        <h2 class="section-title">Mecanismes Uniques</h2>
+      </div>
+
+      <h3>UMP -- Le Piege de la Lame Cachee</h3>
+      <p>L'industrie vend des lames deguisees en brosses. Le proprietaire croit brosser son chien. En realite, il le rase par micro-coupures. Le sous-poil mort reste. Le guard hair est detruit.</p>
+      <div class="schema-box">Brosse a lames + Brossage regulier = Guard hair coupe + Sous-poil intact
+                                   = Pelage endommage + Poil TOUJOURS sur le divan
+                                   = Client frustre qui achete une AUTRE brosse a lames
+                                   = Cycle infini</div>
+
+      <h3>UMS -- L'Extraction Sous-Cutanee</h3>
+      <p><strong>Metaphore:</strong> "C'est comme un peigne qui glisse ENTRE les couches de poil au lieu de couper a travers." Imagine un manteau d'hiver avec une doublure amovible. La Purecoat retire la doublure morte sans toucher au manteau exterieur.</p>
+      <table>
+        <tr><th>Innovation</th><th>Description</th></tr>
+        <tr><td><strong>Dents arrondies en acier inoxydable</strong></td><td>PAS de lames. Impossible de couper le guard hair. Impossible de griffer la peau.</td></tr>
+        <tr><td><strong>Poignee ergonomique anti-fatigue</strong></td><td>Concue pour les grosses races (30-40kg). Elimine la fatigue des mains.</td></tr>
+        <tr><td><strong>Bouton d'ejection rapide</strong></td><td>Un clic et le poil est ejector. Pas de pause dans le brossage.</td></tr>
+      </table>
+    </div>
+
+    <div class="section" id="n-strategie">
+      <div class="section-header">
+        <span class="section-icon">&#128640;</span>
+        <h2 class="section-title">Strategie DR</h2>
+      </div>
+
+      <div class="highlight-box nuvopet">"Ta brosse a une lame cachee. C'est pour ca que le pelage de ton chien est endommage et que le poil est toujours partout. Le Purecoat n'a ZERO lame -- juste des dents arrondies qui retirent le sous-poil mort sans couper un seul poil de surface."</div>
+
+      <h3>5 Variations de la Big Idea</h3>
+      <table>
+        <tr><th>#</th><th>Variation</th><th>Funnel</th><th>Plateforme</th></tr>
+        <tr><td>1</td><td>"Le Piege de la Lame Cachee" -- education</td><td>TOF</td><td>Meta (FB feed)</td></tr>
+        <tr><td>2</td><td>"Regarde tout ce qui sort" -- preuve visuelle ASMR</td><td>TOF-MOF</td><td>TikTok</td></tr>
+        <tr><td>3</td><td>"Il fuyait la brosse. Maintenant il vient." -- transformation</td><td>MOF-BOF</td><td>Instagram</td></tr>
+        <tr><td>4</td><td>"La derniere brosse que tu vas acheter" -- sceptique converti</td><td>BOF</td><td>Retargeting</td></tr>
+        <tr><td>5</td><td>"Ton divan va te remercier" -- resultat concret</td><td>Multi</td><td>Meta + TikTok</td></tr>
+      </table>
+    </div>
+
+    <div class="section" id="n-angles">
+      <div class="section-header">
+        <span class="section-icon">&#127919;</span>
+        <h2 class="section-title">15 Angles de Pub</h2>
+      </div>
+
+      <table>
+        <tr><th>#</th><th>Angle</th><th>Type</th><th>Awareness</th><th>Avatar</th><th>TAM</th></tr>
+        <tr><td>1</td><td><strong>Le Piege de la Lame</strong></td><td>Ennemi Commun</td><td><span class="tag tag-unaware">1-2</span></td><td>Sophie</td><td>MASSIF</td></tr>
+        <tr><td>2</td><td><strong>L'Extraction Sous-Cutanee</strong></td><td>Secret</td><td><span class="tag tag-problem">2-3</span></td><td>Alex</td><td>NICHE</td></tr>
+        <tr><td>3</td><td><strong>La Pile de Preuve</strong></td><td>Demo Visuelle</td><td><span class="tag tag-problem">2-3</span></td><td>Tous</td><td>MASSIF</td></tr>
+        <tr><td>4</td><td><strong>De la Peur a la Connexion</strong></td><td>Avant/Apres emotionnel</td><td><span class="tag tag-solution">3-4</span></td><td>Sophie</td><td>MOYEN</td></tr>
+        <tr><td>5</td><td><strong>Le Divan Libere</strong></td><td>Avant/Apres maison</td><td><span class="tag tag-problem">2</span></td><td>Sophie</td><td>MASSIF</td></tr>
+        <tr><td>6</td><td><strong>Le FURminator Killer</strong></td><td>Comparaison</td><td><span class="tag tag-solution">3</span></td><td>Sophie + Alex</td><td>MOYEN</td></tr>
+        <tr><td>7</td><td><strong>La Toiletteuse Parle</strong></td><td>Temoignage Pro</td><td><span class="tag tag-solution">3-4</span></td><td>Toutes</td><td>NICHE</td></tr>
+        <tr><td>8</td><td><strong>Le Golden Glitter</strong></td><td>Race-Specific</td><td><span class="tag tag-problem">2-3</span></td><td>Sophie</td><td>MOYEN</td></tr>
+        <tr><td>9</td><td><strong>Le Blowout du Husky</strong></td><td>Race-Specific</td><td><span class="tag tag-problem">2-3</span></td><td>Alex</td><td>MOYEN</td></tr>
+        <tr><td>10</td><td><strong>Le Marathon du GSD</strong></td><td>Race-Specific</td><td><span class="tag tag-problem">2-3</span></td><td>Sophie</td><td>MOYEN</td></tr>
+        <tr><td>11</td><td><strong>Le Lab Invisible</strong></td><td>Race-Specific</td><td><span class="tag tag-problem">2-3</span></td><td>Sophie</td><td>MOYEN</td></tr>
+        <tr><td>12</td><td><strong>La Saison de Mue</strong></td><td>Saisonnier</td><td><span class="tag tag-problem">2</span></td><td>Sophie + Alex</td><td>MASSIF</td></tr>
+        <tr><td>13</td><td><strong>La Permission de Brosser</strong></td><td>Culpabilite</td><td><span class="tag tag-solution">3</span></td><td>Sophie</td><td>MOYEN</td></tr>
+        <tr><td>14</td><td><strong>Le Scroll Satisfying</strong></td><td>ASMR / Satisfaction</td><td><span class="tag tag-unaware">1</span></td><td>Tous</td><td>MASSIF</td></tr>
+        <tr><td>15</td><td><strong>Le Bon Proprietaire</strong></td><td>Social Proof + Bonding</td><td><span class="tag tag-problem">2</span></td><td>Sophie + Alex</td><td>MOYEN</td></tr>
+      </table>
+    </div>
+
+    <div class="section" id="n-hooks">
+      <div class="section-header">
+        <span class="section-icon">&#127907;</span>
+        <h2 class="section-title">Hooks</h2>
+      </div>
+      <h3>Top hooks par categorie</h3>
+      <h4>Peur / Douleur</h4>
+      <div class="hook-card">
+        <div class="hook-num">P1</div>
+        <div><div class="hook-text">"Savais-tu que ta brosse a une LAME cachee entre les dents?"</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">P3</div>
+        <div><div class="hook-text">"Ta brosse COUPE le poil de ton chien. Pas l'enleve. Le COUPE. Comme un rasoir."</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">P4</div>
+        <div><div class="hook-text">"Quand ton chien se sauve en voyant la brosse, c'est pas un caprice. C'est parce que ca lui fait MAL."</div></div>
+      </div>
+      <h4>Curiosite</h4>
+      <div class="hook-card">
+        <div class="hook-num">C1</div>
+        <div><div class="hook-text">"Tu sais c'est quoi la difference entre un couteau pis une cuillere? Regarde ta brosse."</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">C3</div>
+        <div><div class="hook-text">"Le bra a ete invente y'a 100 ans. Rien a change." (adaptation: "Le FURminator a pas change en 20 ans.")</div></div>
+      </div>
+      <h4>Desir / Transformation</h4>
+      <div class="hook-card">
+        <div class="hook-num">D1</div>
+        <div><div class="hook-text">"5 minutes. C'est tout. Regarde ce qui sort de mon Golden."</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">D3</div>
+        <div><div class="hook-text">"Mon chien se cachait sous la table quand je sortais la brosse. Regarde-le maintenant."</div></div>
+      </div>
+    </div>
+
+    <div class="section" id="n-garantie">
+      <div class="section-header">
+        <span class="section-icon">&#128737;</span>
+        <h2 class="section-title">Garantie</h2>
+      </div>
+      <div class="card">
+        <div class="card-title">Option recommandee: Unconditional 60 jours</div>
+        <p><strong>"Satisfait ou rembourse. 60 jours. Ton chien decide."</strong></p>
+        <p>Essaie la Purecoat pendant 60 jours. Si t'es pas 100% satisfaite -- pour n'importe quelle raison -- on te rembourse. Pas de questions. On est tellement confiants que ton chien va adorer que c'est LUI qui decide si tu gardes la brosse.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Option conditionnelle: "Resultat en 2 semaines"</div>
+        <p>"Si ton chien perd encore autant de poil apres 2 semaines de brossage regulier, on te rembourse."</p>
+        <p>La condition est FACILE a remplir (brosser 2x/semaine pendant 14 jours) et cree un engagement qui augmente la satisfaction.</p>
+      </div>
+    </div>
+
+  </div><!-- fin section-nuvopet -->
+
+  <!-- ============================================================ -->
+  <!-- INSIGHTS -->
+  <!-- ============================================================ -->
+  <div class="brand-section" id="section-insights">
+
+    <div class="section" id="i-tam">
+      <div class="section-header">
+        <span class="section-icon">&#128202;</span>
+        <h2 class="section-title">Angles x TAM Ranking</h2>
+      </div>
+      <div class="section-intro insight">
+        <strong>C'est quoi le TAM?</strong> TAM = Total Addressable Market = la TAILLE du marche pour un angle donne. Un angle avec un gros TAM touche beaucoup de monde (ex: "les marques rouges" touche 80%+ des femmes 45+). Un angle avec un petit TAM touche un segment plus precis (ex: "post-mastectomie" touche ~5% des femmes 50+). <strong>Regle d'or:</strong> Un angle avec un petit TAM ne pourra JAMAIS scaler, meme s'il convertit bien. On teste les gros TAM en premier, on identifie les winners, PUIS on teste les niches.
+      </div>
+
+      <h3>COLETTE -- Top 5 a lancer en PREMIER</h3>
+      <table>
+        <tr><th>Rang</th><th>Angle</th><th>TAM</th><th>Pourquoi</th></tr>
+        <tr><td>1</td><td><strong>Les Marques Rouges</strong></td><td>MASSIF</td><td>80%+ des femmes 45+ ont des marques de bretelles</td></tr>
+        <tr><td>2</td><td><strong>L'Avant/Apres Silhouette</strong></td><td>MASSIF</td><td>Bourrelet dans le dos = probleme universel</td></tr>
+        <tr><td>3</td><td><strong>Le Dernier Jour d'Armature</strong></td><td>MASSIF</td><td>100% des femmes qui portent un bra a armatures</td></tr>
+        <tr><td>4</td><td><strong>Le Systeme 2-Points</strong></td><td>MASSIF</td><td>Toute femme qui porte un bra est concernee</td></tr>
+        <tr><td>5</td><td><strong>Le Scepticisme Converti</strong></td><td>MASSIF</td><td>Toute femme qui a vu des pubs FB et doute</td></tr>
+      </table>
+
+      <h3>NUVOPET -- Top 5 a lancer en PREMIER</h3>
+      <table>
+        <tr><th>Rang</th><th>Angle</th><th>TAM</th><th>Pourquoi</th></tr>
+        <tr><td>1</td><td><strong>Le Divan Libere</strong></td><td>MASSIF</td><td>"Poils sur le sofa" = douleur #1 universelle</td></tr>
+        <tr><td>2</td><td><strong>Le Piege de la Lame</strong></td><td>MASSIF</td><td>FURminator = ennemi commun, des millions d'utilisateurs</td></tr>
+        <tr><td>3</td><td><strong>La Pile de Preuve</strong></td><td>MASSIF</td><td>ASMR, viral, TikTok gold</td></tr>
+        <tr><td>4</td><td><strong>La Saison de Mue</strong></td><td>MASSIF</td><td>Saisonnier mais TAM massif, urgence naturelle</td></tr>
+        <tr><td>5</td><td><strong>Le Scroll Satisfying</strong></td><td>MASSIF</td><td>TikTok, Rhykin absent, terre vierge</td></tr>
+      </table>
+
+      <h3>Execution recommandee</h3>
+      <p><strong>Batch 1 (semaines 1-2):</strong> 5 angles TAM massifs x 5-6 creas chacun = 25-30 creatifs. Mesurer a 48h. Couper. Scaler les winners.</p>
+      <p><strong>Batch 2 (semaines 3-4):</strong> TAM moyens -- races specifiques pour Nuvopet, coussinets/cadeau pour Colette.</p>
+      <p><strong>Batch 3 (mois 2):</strong> Niches + tests (body positive, toiletteuse parle, etc.).</p>
+    </div>
+
+    <div class="section" id="i-podcast">
+      <div class="section-header">
+        <span class="section-icon">&#127897;</span>
+        <h2 class="section-title">Podcast Master -- Golden Nuggets</h2>
+      </div>
+      <div class="section-intro insight">
+        Insights compiles depuis les episodes MASTER de Matteo &amp; Nico -- principalement le #43 sur le funnel complet, l'IA et les creatives 2026. Ce sont des regles applicables immediatement a nos campagnes Colette et Nuvopet.
+      </div>
+
+      <h3>Meta Ads &amp; Media Buying</h3>
+      <blockquote><p>Le hook fait le targeting. Avant c'etait 'attention les hommes de plus de 50 ans', maintenant on va faire 'attention les hommes de plus de 50 ans qui ont de l'acne'. Andromeda il adore.</p><cite>-- MASTER #43</cite></blockquote>
+      <p>Le hook doit cibler l'avatar PARFAIT -- plus c'est precis, mieux Andromeda (le systeme de ciblage Meta) performe. Le contenu APRES le hook filtre aussi le targeting.</p>
+
+      <blockquote><p>Le glitch du moment c'est Reddit. Tu regardes ce que les gens se posent comme questions, les pain points, les solutions deja utilisees. Ensuite tu copier-coller la meme phrase en ad copy.</p><cite>-- MASTER #43</cite></blockquote>
+
+      <h3>Creatives &amp; Production</h3>
+      <blockquote><p>Le concept ne battra jamais la psychologie. Le concept c'est un vehicule pour faire passer un message. Le plus important c'est le message.</p><cite>-- MASTER #43</cite></blockquote>
+
+      <p><strong>Structure d'une ad video:</strong></p>
+      <div class="progression">
+        <div class="progression-step">Hook (0-3s)</div>
+        <div class="progression-arrow">&#8594;</div>
+        <div class="progression-step">Open Loop</div>
+        <div class="progression-arrow">&#8594;</div>
+        <div class="progression-step">Emotions (gap douleur/desir)</div>
+        <div class="progression-arrow">&#8594;</div>
+        <div class="progression-step">Trust</div>
+        <div class="progression-arrow">&#8594;</div>
+        <div class="progression-step">Rationnel</div>
+        <div class="progression-arrow">&#8594;</div>
+        <div class="progression-step">CTA (2-7s)</div>
+      </div>
+
+      <blockquote><p>Plus tu crees d'emotions, plus la personne va envie d'acheter. Idealement des emotions negatives pour appuyer les douleurs, puis montrer le desir, creer un GAP entre les deux. C'est ce gap qui donne envie d'agir.</p><cite>-- MASTER #43</cite></blockquote>
+
+      <blockquote><p>Le visuel est 100 fois plus puissant que les mots pour prouver. Si je te dis 'j'ai fait un million', tu dis ouais. Si je te MONTRE un million, tu dis waouh.</p><cite>-- MASTER #43</cite></blockquote>
+
+      <h3>Conversion &amp; Funnel</h3>
+      <blockquote><p>70% des personnes ne regarderont pas le reste de la page. Il faut optimiser above the fold.</p><cite>-- MASTER #43</cite></blockquote>
+      <p><strong>Carousel produit ideal:</strong> 1. Produit clean 2. USP #1 3. Avant/Apres 4. Social proof 5. Statistiques 6. Video demo 7. Autre USP</p>
+
+      <blockquote><p>Dans la premiere seconde sur le site, il faut que son cerveau dise OUI j'ai confiance, OUI c'est la suite de ce que j'ai vu.</p><cite>-- MASTER #43</cite></blockquote>
+
+      <h3>20 Golden Nuggets</h3>
+      <table>
+        <tr><th>#</th><th>Nugget</th></tr>
+        <tr><td>1</td><td>"Le concept ne battra jamais la psychologie."</td></tr>
+        <tr><td>2</td><td>"Le hook fait le targeting."</td></tr>
+        <tr><td>3</td><td>"Plus tu crees d'emotions, plus la personne va envie d'acheter."</td></tr>
+        <tr><td>4</td><td>"Le visuel est 100x plus puissant que les mots pour prouver."</td></tr>
+        <tr><td>5</td><td>"Reddit c'est le glitch du moment."</td></tr>
+        <tr><td>6</td><td>"Il faut un funnel qui a le moins de friction possible."</td></tr>
+        <tr><td>7</td><td>"Si tu reponds pas a une objection, tu perds l'acheteur."</td></tr>
+        <tr><td>8</td><td>"Les meilleurs CTA: entre 2 et 7 secondes, pas passer pour vendeur."</td></tr>
+        <tr><td>9</td><td>"70% des personnes ne regarderont pas le reste de la page."</td></tr>
+        <tr><td>10</td><td>"Le moindre changement de prix peut faire 100K ou zero."</td></tr>
+        <tr><td>11</td><td>"80% du business c'est de l'IA maintenant."</td></tr>
+        <tr><td>12</td><td>"On a un lapse de temps avec l'IA. Les premiers c'est les mieux servis."</td></tr>
+        <tr><td>13</td><td>"Les autres options du bundle sont juste la pour positionner le prix."</td></tr>
+        <tr><td>14</td><td>"Le cerveau change quand l'environnement change."</td></tr>
+        <tr><td>15</td><td>"Chauffer la page: 2 semaines, 2 posts par jour."</td></tr>
+        <tr><td>16</td><td>"Le format Founder qui repond aux objections c'est ultra puissant."</td></tr>
+        <tr><td>17</td><td>"Il faut stopper le scroll des BONNES personnes, pas des mauvaises."</td></tr>
+        <tr><td>18</td><td>"Dans la premiere seconde sur le site, son cerveau doit dire OUI j'ai confiance."</td></tr>
+        <tr><td>19</td><td>"Faire une landing page dans tes images carousel."</td></tr>
+        <tr><td>20</td><td>"Un format qui est banger c'est le point of view produit."</td></tr>
+      </table>
+    </div>
+
+  </div><!-- fin section-insights -->
+
+  <!-- ============================================================ -->
+  <!-- APPENDICE COLETTE -- CONTENU DEVELOPPE SUPPLEMENTAIRE -->
+  <!-- ============================================================ -->
+  <div class="brand-section" id="section-colette-extra" style="display:none;">
+  </div>
+
+</div><!-- fin main -->
+
+<!-- ============================================================ -->
+<!-- EXPANDED COLETTE CONTENT inserted inline -->
+<!-- ============================================================ -->
+<script>
+// After page load, inject expanded content into existing sections
+document.addEventListener('DOMContentLoaded', function() {
+
+  // Add expanded Voix du Client content
+  const voixSection = document.getElementById('c-voix');
+  if(voixSection) {
+    const extraContent = document.createElement('div');
+    extraContent.innerHTML = `
+      <h3>Les 20 mots/expressions les plus utilises par les clientes</h3>
+      <p>Ce sont les VRAIS mots que les clientes utilisent dans leurs reviews. Pas notre langage marketing. Le langage REEL. Quand on utilise ces mots dans nos pubs, la cliente se reconnait instantanement.</p>
+      <table>
+        <tr><th>#</th><th>Mot/Expression</th><th>Frequence</th><th>Contexte</th></tr>
+        <tr><td>1</td><td><strong>"comfortable"</strong></td><td>769+ mentions</td><td>Le mot #1 dans les reviews positives. Utilise pour decrire le fit, le tissu, les bretelles.</td></tr>
+        <tr><td>2</td><td><strong>"support" / "supportive"</strong></td><td>400+ mentions</td><td>Toujours en tension avec "comfortable" -- les femmes veulent LES DEUX.</td></tr>
+        <tr><td>3</td><td><strong>"fit" / "doesn't fit"</strong></td><td>350+ mentions</td><td>Le mot le plus polarisant -- soit ca fit, soit ca fit PAS.</td></tr>
+        <tr><td>4</td><td><strong>"wireless" / "no wire"</strong></td><td>250+ mentions</td><td>Le pre-requis non-negociable pour la cliente.</td></tr>
+        <tr><td>5</td><td><strong>"soft" / "buttery soft"</strong></td><td>200+ mentions</td><td>Desir tactile -- le tissu doit etre DOUX, pas juste confortable.</td></tr>
+        <tr><td>6</td><td><strong>"pads" / "padding"</strong></td><td>288+ mentions</td><td>Presque toujours en contexte NEGATIF (bougent, tordent).</td></tr>
+        <tr><td>7</td><td><strong>"straps" / "bretelles"</strong></td><td>253+ mentions</td><td>"Dig in", "pressing", "wide straps" -- le vocabulaire de la douleur.</td></tr>
+        <tr><td>8</td><td><strong>"all day"</strong></td><td>150+ mentions</td><td>Ca doit etre confortable DU MATIN AU SOIR.</td></tr>
+        <tr><td>9</td><td><strong>"red marks"</strong></td><td>100+ mentions</td><td>La preuve physique de l'inconfort. Declencheur emotionnel puissant.</td></tr>
+        <tr><td>10</td><td><strong>"best bra ever"</strong></td><td>154 mentions</td><td>Expression d'evangelisation -- la cliente devient ambassadrice.</td></tr>
+        <tr><td>11</td><td><strong>"cheap" / "thin" / "flimsy"</strong></td><td>200+ mentions</td><td>Vocabulaire de deception. Attentes non rencontrees.</td></tr>
+        <tr><td>12</td><td><strong>"forget"</strong></td><td>100+ mentions</td><td>"I forget I'm wearing it" = le Saint Graal du confort.</td></tr>
+        <tr><td>13</td><td><strong>"under my clothes"</strong></td><td>307 mentions</td><td>L'invisibilite est un desir MAJEUR.</td></tr>
+        <tr><td>14</td><td><strong>"return" / "refund"</strong></td><td>492+ mentions</td><td>Presque toujours en contexte NEGATIF (difficulte a retourner).</td></tr>
+        <tr><td>15</td><td><strong>"size" / "sizing"</strong></td><td>773+ mentions</td><td>Le sujet #1 par volume brut.</td></tr>
+        <tr><td>16</td><td><strong>"digging" / "digs in"</strong></td><td>150+ mentions</td><td>Specifique aux bretelles et bandes elastiques.</td></tr>
+        <tr><td>17</td><td><strong>"coverage"</strong></td><td>100+ mentions</td><td>Les femmes veulent etre COUVERTES, pas exposees.</td></tr>
+        <tr><td>18</td><td><strong>"sewn-in"</strong></td><td>50+ mentions</td><td>Toujours POSITIF. C'est ce que les femmes VEULENT.</td></tr>
+        <tr><td>19</td><td><strong>"smooth"</strong></td><td>100+ mentions</td><td>"Smooth lines", "smooth back" -- vocabulaire d'invisibilite.</td></tr>
+        <tr><td>20</td><td><strong>"every color"</strong></td><td>87+ mentions</td><td>Signal de satisfaction totale.</td></tr>
+      </table>
+
+      <h3>Expressions QC a utiliser en ads</h3>
+      <table>
+        <tr><th>Expression cliente EN</th><th>Equivalent QC naturel</th></tr>
+        <tr><td>"I forget I'm wearing it"</td><td>"J'oublie que je le porte"</td></tr>
+        <tr><td>"No more red marks"</td><td>"Fini les marques rouges"</td></tr>
+        <tr><td>"Best bra ever"</td><td>"Le meilleur bra de ma vie"</td></tr>
+        <tr><td>"I want this in every color"</td><td>"J'en veux dans toutes les couleurs"</td></tr>
+        <tr><td>"Wider straps that don't dig in"</td><td>"Des bretelles larges qui creusent pas"</td></tr>
+        <tr><td>"So comfortable ALL DAY"</td><td>"Confortable toute la journee"</td></tr>
+        <tr><td>"Smooth lines under my clothes"</td><td>"Ca parait pas en dessous de mes vetements"</td></tr>
+        <tr><td>"The pads don't move"</td><td>"Les coussinets bougent pas"</td></tr>
+        <tr><td>"No wire but still has support"</td><td>"Pas d'armature mais ca tient pareil"</td></tr>
+        <tr><td>"I finally found it"</td><td>"Je l'ai enfin trouve"</td></tr>
+        <tr><td>"I'm done with bras"</td><td>"C'est fini les bras pour moi"</td></tr>
+        <tr><td>"My husband noticed"</td><td>"Mon chum a remarque"</td></tr>
+      </table>
+
+      <h3>Les 6 emotions du parcours client</h3>
+
+      <div class="card">
+        <div class="card-title">1. FRUSTRATION ACCUMULEE (emotion dominante)</div>
+        <p>Pas une frustration ponctuelle -- une frustration accumulee sur des DECENNIES. 30 ans, 40 ans, 50 ans de bras inconfortables. C'est une colere sourde qui ne s'exprime jamais completement parce que "c'est normal, toutes les femmes portent des bras."</p>
+        <p><strong>Declencheurs:</strong> Le moment ou tu enleves ton bra le soir et tu vois les marques rouges. Le moment ou tu recois ta commande en ligne et ca fit PAS. Le moment ou les coussinets sont encore torchus apres le lavage.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">2. HONTE (emotion cachee)</div>
+        <p>La honte est PARTOUT dans les reviews mais n'est JAMAIS nommee directement. Les femmes ont honte de leur corps qui change, de ne pas trouver leur taille, du bourrelet dans le dos visible sous les vetements.</p>
+        <p><strong>Insight pour Colette:</strong> On ne NOMME jamais la honte. On la SOULAGE. "T'as pas maigri. T'as juste arrete de porter un bra qui te faisait des bourrelets dans le dos."</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">3. ESPOIR (emotion pre-achat)</div>
+        <p>L'espoir est fragile. Elle VEUT croire, mais elle a ete decue trop souvent. L'espoir doit etre CONFIRME, pas suscite. Ne pas dire "c'est revolutionnaire!" -- dire "les coussinets bougent pas. Pour vrai."</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">4. SOULAGEMENT (emotion post-achat)</div>
+        <p>Le soulagement est l'emotion la plus PUISSANTE des reviews positives. Ce n'est pas de la joie -- c'est du soulagement. "Enfin. C'est fini." Le moment sacre: quand elle l'enfile pour la premiere fois et que ca ne serre pas, ca ne pince pas, ca ne creuse pas.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">5. FIERTE (emotion post-adoption)</div>
+        <p>La fierte arrive APRES le soulagement. "Husband thought it made my girls look amazing." "J'en ai parle a ma soeur." C'est le moteur du bouche-a-oreille.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">6. COLERE (emotion de trahison)</div>
+        <p>La colere n'est pas contre le produit -- c'est contre la MARQUE qui a menti. Fausse pub, qualite cheap, retours impossibles. "Fake ads the item shown is not what you receive." La colere cree une OPPORTUNITE: les femmes en colere sont PRETES a essayer autre chose.</p>
+      </div>
+
+      <h3>Mythes et idees recues du marche</h3>
+      <table>
+        <tr><th>Mythe</th><th>Realite</th><th>Source</th></tr>
+        <tr><td>"Les bras sans armature ne supportent pas"</td><td>Les bretelles larges + coussinets structures offrent un support reel</td><td>250+ reviews positives wireless</td></tr>
+        <tr><td>"Il faut un systeme bonnet + bande pour un bon fit"</td><td>Le sizing S-2XL est plus simple ET plus precis pour 80% des femmes</td><td>773 mentions de sizing problems</td></tr>
+        <tr><td>"Les coussinets amovibles c'est mieux pour le lavage"</td><td>Ils sont le probleme #4 par frequence -- ils bougent, tordent</td><td>288 mentions negatives</td></tr>
+        <tr><td>"Aller braless = laisser-aller"</td><td>53% des femmes sans bra le font pour le CONFORT</td><td>Statista 2020</td></tr>
+        <tr><td>"Toutes les femmes ont mal avec un bra"</td><td>Les femmes ont mal avec un bra MAL CONCU</td><td>769 mentions de confort quand le produit est bon</td></tr>
+      </table>
+    `;
+    voixSection.appendChild(extraContent);
+  }
+
+  // Add expanded strategy content for Colette
+  const strategieSection = document.getElementById('c-strategie');
+  if(strategieSection) {
+    const extraStrat = document.createElement('div');
+    extraStrat.innerHTML = `
+      <h3>Welcome Sequence Email (7 emails, 1 croyance par email)</h3>
+      <table>
+        <tr><th>Email</th><th>Jour</th><th>Sujet</th><th>Croyance</th></tr>
+        <tr><td>E1</td><td>J+0</td><td>"Et si c'etait pas ta taille qui etait mauvaise?"</td><td>One Belief -- le systeme est brise, pas toi</td></tr>
+        <tr><td>E2</td><td>J+1</td><td>"30 ans de marques rouges. Ca suffit."</td><td>#1 -- les bras blessent</td></tr>
+        <tr><td>E3</td><td>J+2</td><td>"Pas d'armature. Mais ca tient."</td><td>#2 -- confort + support possibles</td></tr>
+        <tr><td>E4</td><td>J+3</td><td>"S, M, L, XL, 2XL. C'est tout."</td><td>#3 -- sizing simplifie</td></tr>
+        <tr><td>E5</td><td>J+4</td><td>"Les coussinets bougent pas. Promis."</td><td>#4 -- coussinets cousus</td></tr>
+        <tr><td>E6</td><td>J+5</td><td>"Si ca fit pas, on t'echange gratuit."</td><td>#5 -- confiance</td></tr>
+        <tr><td>E7</td><td>J+7</td><td>"T'as assez endure."</td><td>#6 -- permission + CTA final</td></tr>
+      </table>
+      <p><strong>Regles email:</strong> Sujet = curiosite ou douleur, JAMAIS "promo". Premiere ligne = personnelle, comme une amie. UN message par email. Ton QC authentique (tutoiement, "fait que", "pis").</p>
+
+      <h3>Structure Ad Statique (format universel)</h3>
+      <table>
+        <tr><th>Zone</th><th>Contenu</th><th>Regle</th></tr>
+        <tr><td>Headline</td><td>Le hook principal de l'angle</td><td>Max 8 mots. Doit stopper le scroll.</td></tr>
+        <tr><td>Image</td><td>Produit sur femme 50+ OU demo visuelle</td><td>PAS de stock photo. Realiste.</td></tr>
+        <tr><td>Badge</td><td>"Echange gratuit" OU "B2G1" OU "Coussinets cousus"</td><td>Toujours present. Coin inferieur droit.</td></tr>
+        <tr><td>Body copy</td><td>2-3 phrases: douleur validee -> differenciateur -> CTA</td><td>Ton QC. Tutoiement. Direct.</td></tr>
+        <tr><td>CTA button</td><td>"Essaie-le" OU "Decouvre" OU "Achete 2 Recois 1"</td><td>Adapte au niveau de conscience</td></tr>
+      </table>
+
+      <h3>Anti-Patterns (ce qu'on ne fait JAMAIS)</h3>
+      <table>
+        <tr><th>Ce qu'on ne fait JAMAIS</th><th>Pourquoi</th></tr>
+        <tr><td>Dire "revolutionnaire" ou "innovant"</td><td>Marche stade 4. Ca sonne fake.</td></tr>
+        <tr><td>Utiliser le mot "menopause"</td><td>Risque Meta policies + les femmes ne nomment pas le diagnostic</td></tr>
+        <tr><td>Dire "soutien-gorge de sport"</td><td>C'est PAS un sport bra. Ca tue le positionnement.</td></tr>
+        <tr><td>Nommer Maggie's ou TrueKind</td><td>Comparaison implicite = OK. Nommer = risque legal.</td></tr>
+        <tr><td>Promettre des resultats medicaux</td><td>"Guerit les douleurs d'epaule" = claim medical interdit</td></tr>
+        <tr><td>Utiliser du francais de France</td><td>"Brassiere", "soutif" = deconnecte du QC</td></tr>
+        <tr><td>Generer des photos produit avec l'IA</td><td>Utiliser les VRAIES photos du produit</td></tr>
+      </table>
+
+      <h3>Roadmap d'execution -- Mois 1</h3>
+      <table>
+        <tr><th>Semaine</th><th>Actions</th><th>KPI cible</th></tr>
+        <tr><td>S1</td><td>Setup technique + Batch 1 (15-20 statiques sur angles 1,3,10,4) + 3-5 videos. CBO Testing $50-100/jour.</td><td>25-30 creatifs testes</td></tr>
+        <tr><td>S2</td><td>Premiere analyse (cut 2x CPA BE). Batch 2 base sur insights S1. Welcome sequence Klaviyo (7 emails).</td><td>CTR > 1%, premiers achats</td></tr>
+        <tr><td>S3</td><td>Batch 3 (15 statiques, introduire Cadeau + Opaque). Campagne Video Views $10-20/j. Iterations winners.</td><td>50 creatifs testes</td></tr>
+        <tr><td>S4</td><td>Analyse 4 fenetres (24h, 48h, 4j, 7j). Graduation 3-5 meilleurs en CBO Scaling. Testing ABO si budget.</td><td>CPA < 35$, ROAS > 1.5</td></tr>
+      </table>
+
+      <h3>Differenciateurs hierarchises</h3>
+      <table>
+        <tr><th>Rang</th><th>Differenciateur</th><th>Force</th><th>Concurrent le plus faible</th></tr>
+        <tr><td>#1</td><td>Coussinets COUSUS -- ne bougent jamais</td><td>10/10</td><td>Maggie's, TrueKind, TOUS (288 mentions du probleme)</td></tr>
+        <tr><td>#2</td><td>Echange taille gratuit + "tu gardes celle que t'as"</td><td>9/10</td><td>TrueKind (chatbot IA), Maggie's (30% refund)</td></tr>
+        <tr><td>#3</td><td>Bretelles larges 4cm plates et douces</td><td>9/10</td><td>Maggie's (~2cm), bras classiques (5-10mm)</td></tr>
+        <tr><td>#4</td><td>Tissu opaque mat double epaisseur (95% coton)</td><td>8/10</td><td>Maggie's (nylon transparent), Shapermint</td></tr>
+        <tr><td>#5</td><td>Sizing S-2XL (pas bonnet+bande)</td><td>8/10</td><td>Toute l'industrie du bra</td></tr>
+        <tr><td>#6</td><td>Zero armature, zero broche, zero agrafe, dos lisse</td><td>7/10</td><td>Bras classiques</td></tr>
+        <tr><td>#7</td><td>Marque quebecoise, ton authentique, service humain FR</td><td>7/10</td><td>Maggie's (US fake), TrueKind (abonnement cache)</td></tr>
+      </table>
+    `;
+    strategieSection.appendChild(extraStrat);
+  }
+
+  // Add expanded Nuvopet Voix du Client
+  const nVoixSection = document.getElementById('n-voix');
+  if(nVoixSection) {
+    const extraNVoix = document.createElement('div');
+    extraNVoix.innerHTML = `
+      <h3>Les 20 mots/expressions les plus utilises par les clients</h3>
+      <table>
+        <tr><th>#</th><th>Mot (EN)</th><th>Equivalent QC</th><th>Frequence</th></tr>
+        <tr><td>1</td><td><strong>shedding</strong></td><td>perte de poils / perd du poil</td><td>Massive</td></tr>
+        <tr><td>2</td><td><strong>hair everywhere</strong></td><td>poil partout</td><td>Massive</td></tr>
+        <tr><td>3</td><td><strong>undercoat</strong></td><td>sous-poil</td><td>Haute</td></tr>
+        <tr><td>4</td><td><strong>deshedding brush</strong></td><td>brosse anti-mue</td><td>Haute</td></tr>
+        <tr><td>5</td><td><strong>blowing coat</strong></td><td>(pas d'equivalent QC)</td><td>Haute</td></tr>
+        <tr><td>6</td><td><strong>bald spots</strong></td><td>plaques chauves</td><td>Moyenne-haute</td></tr>
+        <tr><td>7</td><td><strong>scratches skin</strong></td><td>gratte la peau</td><td>Moyenne-haute</td></tr>
+        <tr><td>8</td><td><strong>pulls hair</strong></td><td>tire les poils</td><td>Moyenne-haute</td></tr>
+        <tr><td>9</td><td><strong>guard hairs</strong></td><td>poil de couverture</td><td>Moyenne</td></tr>
+        <tr><td>10</td><td><strong>double coat</strong></td><td>double pelage</td><td>Moyenne</td></tr>
+        <tr><td>11</td><td><strong>matted / tangles</strong></td><td>noeuds / emmele</td><td>Moyenne</td></tr>
+        <tr><td>12</td><td><strong>gentle</strong></td><td>doux / fait pas mal</td><td>Moyenne</td></tr>
+        <tr><td>13</td><td><strong>game changer</strong></td><td>(utilise tel quel en QC)</td><td>Moyenne</td></tr>
+        <tr><td>14</td><td><strong>waste of money</strong></td><td>perte d'argent</td><td>Moyenne</td></tr>
+        <tr><td>15</td><td><strong>cheaply made</strong></td><td>plastique cheap</td><td>Moyenne</td></tr>
+        <tr><td>16</td><td><strong>self-cleaning</strong></td><td>auto-nettoyante</td><td>Moyenne</td></tr>
+        <tr><td>17</td><td><strong>fur tumbleweeds</strong></td><td>moutons de poil</td><td>Moyenne</td></tr>
+        <tr><td>18</td><td><strong>my [race] sheds like crazy</strong></td><td>mon [race] perd du poil sans arret</td><td>Haute</td></tr>
+        <tr><td>19</td><td><strong>vacuum every day</strong></td><td>passer l'aspirateur tous les jours</td><td>Moyenne</td></tr>
+        <tr><td>20</td><td><strong>ergonomic handle</strong></td><td>poignee ergonomique</td><td>Basse-moyenne</td></tr>
+      </table>
+
+      <h3>Saisonnalite emotionnelle</h3>
+      <table>
+        <tr><th>Periode</th><th>Intensite</th><th>Emotions</th><th>Comportement d'achat</th></tr>
+        <tr><td><strong>Mars-Mai (mue printemps)</strong></td><td>MAXIMALE</td><td>Desespoir, frustration, urgence</td><td>Pic d'achats #1. Le client est pret a payer plus. CPA tolerable plus eleve.</td></tr>
+        <tr><td><strong>Juin-Aout (ete)</strong></td><td>Moyenne</td><td>Allergies, chaleur, entretien</td><td>Achats reguliers. Angle "allergies" et "chaleur".</td></tr>
+        <tr><td><strong>Sept-Nov (mue automne)</strong></td><td>Haute</td><td>Frustration (retour du probleme), anticipation Q4</td><td>Pic d'achats #2. Combinable avec BFCM.</td></tr>
+        <tr><td><strong>Dec-Fev (hiver)</strong></td><td>Basse-moyenne</td><td>Calme relatif</td><td>Achats cadeau. Angle "cadeau pour proprietaire de chien".</td></tr>
+      </table>
+
+      <h3>Les 10 croyances limitantes a detruire</h3>
+      <table>
+        <tr><th>#</th><th>Croyance limitante</th><th>Comment la casser</th></tr>
+        <tr><td>1</td><td>"Le FURminator est le meilleur, tout le monde le dit."</td><td>Contenu educatif lames vs dents arrondies. Endossement toiletteurs pro.</td></tr>
+        <tr><td>2</td><td>"Toutes les brosses se valent, c'est du marketing."</td><td>Close-up visuel de la difference mecanique. Analogie couteau vs cuillere.</td></tr>
+        <tr><td>3</td><td>"Raser mon chien va regler le probleme."</td><td>Eduquer: le double coat ne repousse PAS correctement apres rasage.</td></tr>
+        <tr><td>4</td><td>"Le brossage ne fait aucune difference."</td><td>Le tas de sous-poil retire en video = preuve ultime.</td></tr>
+        <tr><td>5</td><td>"Les brosses font toujours mal, c'est normal."</td><td>Videos de chiens detendus, yeux mi-clos.</td></tr>
+        <tr><td>6</td><td>"Si ca marche bien, ca doit etre agressif."</td><td>"L'efficacite vient de la forme des dents, pas du tranchant."</td></tr>
+        <tr><td>7</td><td>"Je n'ai pas le temps."</td><td>Repeter "5 minutes par semaine" dans TOUTES les communications.</td></tr>
+        <tr><td>8</td><td>"Les reviews en ligne sont faux."</td><td>UGC reels, endossement toiletteurs pro AVEC nom visible.</td></tr>
+        <tr><td>9</td><td>"Mon chien perd du poil a cause d'un probleme de sante."</td><td>Eduquer: la mue saisonniere est 100% naturelle pour les races double pelage.</td></tr>
+        <tr><td>10</td><td>"Je devrais amener mon chien chez le toiletteur."</td><td>"L'outil des pros, a la maison." L'entretien ENTRE les visites est essentiel.</td></tr>
+      </table>
+
+      <h3>Declencheurs d'achat par race</h3>
+      <table>
+        <tr><th>Race</th><th>Declencheur specifique</th><th>Moment precis</th></tr>
+        <tr><td><strong>Golden Retriever</strong></td><td>Les touffes de poil beige sur le divan noir. Le "Golden glitter" sur tous les vetements.</td><td>Mars-avril quand les touffes sortent par poignees. Photo Instagram d'un Golden au pelage parfait vs le sien.</td></tr>
+        <tr><td><strong>Labrador</strong></td><td>"Mon Lab perd du poil 365 jours par an." Poil court mais s'incruste dans TOUT.</td><td>Passage d'aspirateur quotidien qui ne suffit plus. Un invite qui refuse de s'asseoir.</td></tr>
+        <tr><td><strong>Berger Allemand</strong></td><td>"2 saisons de mue, chacune dure 6 mois." Volume MASSIF de sous-poil.</td><td>Sept-oct quand les touffes tombent par poignees entieres.</td></tr>
+        <tr><td><strong>Husky Siberien</strong></td><td>Le "coat blow" bisannuel = volume INSANE. Le Husky scream pendant le brossage.</td><td>Mars-avril ou sept-oct. Video TikTok d'un Husky brosse = achat impulsif.</td></tr>
+        <tr><td><strong>Malamute</strong></td><td>Volume ENCORE plus massif que le Husky (plus gros chien).</td><td>Session de brossage ou il remplit un sac poubelle ENTIER.</td></tr>
+        <tr><td><strong>Samoyed</strong></td><td>Le poil blanc PARTOUT sur les vetements noirs. Le "Samoyed cloud" = phenomene TikTok.</td><td>Video virale + moment ou le proprio realise que le poil blanc est PARTOUT.</td></tr>
+      </table>
+    `;
+    nVoixSection.appendChild(extraNVoix);
+  }
+
+  // Add expanded Nuvopet strategy content
+  const nStratSection = document.getElementById('n-strategie');
+  if(nStratSection) {
+    const extraNStrat = document.createElement('div');
+    extraNStrat.innerHTML = `
+      <h3>Contexte competitif</h3>
+      <table>
+        <tr><th>Concurrent</th><th>Realite</th><th>Opportunite Purecoat</th></tr>
+        <tr><td><strong>Rhykin</strong></td><td>$2M/mois, 847 ads, 17 advertisers, ZERO TikTok, qualite mediocre, 19 reviews Trustpilot</td><td>Pre-empter TikTok, branding premium vs dropship</td></tr>
+        <tr><td><strong>FURminator</strong></td><td>Leader retail mondial, 55K reviews Amazon, lames = faille documentee</td><td>Eduquer contre les lames, capter le trafic "FURminator alternative"</td></tr>
+        <tr><td><strong>Marche QC</strong></td><td>ZERO concurrent francophone en DTC deshedding</td><td>Domination totale du marche francophone canadien</td></tr>
+        <tr><td><strong>TikTok</strong></td><td>Rhykin absent, FURminator absent</td><td>Terre vierge pour le format viral ASMR brossage</td></tr>
+      </table>
+
+      <h3>Positionnement: Superior Product</h3>
+      <div class="schema-box">
+                   EFFICACITE
+                      |
+           FURminator |  PURECOAT
+         (efficace    |  (efficace
+          mais coupe) |  ET securitaire)
+                      |
+    ---- DOULEUR -----+---- DOUCEUR ----
+                      |
+         Hertzko      |  GoPets
+         Slicker      |  (doux mais
+         (gratte)     |  tire/inefficace)
+                      |
+                  INEFFICACITE
+      </div>
+      <p>Le Purecoat occupe le SEUL quadrant ou le client veut etre: <strong>efficace ET doux</strong>.</p>
+
+      <h3>Hierarchie des 10 preuves</h3>
+      <table>
+        <tr><th>Rang</th><th>Preuve</th><th>Type</th><th>Force</th></tr>
+        <tr><td>#1</td><td>Demo video: le TAS de sous-poil retire en 5 min</td><td>Demonstration physique</td><td>10/10</td></tr>
+        <tr><td>#2</td><td>Close-up dents arrondies vs lames</td><td>Demonstration comparative</td><td>9/10</td></tr>
+        <tr><td>#3</td><td>Chien detendu, yeux mi-clos pendant brossage</td><td>Preuve emotionnelle</td><td>9/10</td></tr>
+        <tr><td>#4</td><td>Test de la main: passer les dents sur la peau</td><td>Demonstration securite</td><td>8/10</td></tr>
+        <tr><td>#5</td><td>Before/after du divan (poilu -> propre)</td><td>Preuve resultat</td><td>8/10</td></tr>
+        <tr><td>#6</td><td>Endossement toiletteuse professionnelle</td><td>Autorite</td><td>8/10</td></tr>
+        <tr><td>#7</td><td>Timer visible: 5 minutes chrono</td><td>Preuve temps</td><td>7/10</td></tr>
+        <tr><td>#8</td><td>UGC race-specifique (Golden, Husky, GSD)</td><td>Preuve sociale specifique</td><td>7/10</td></tr>
+        <tr><td>#9</td><td>ROI: 49.99$ vs 150$/mois chez le toiletteur</td><td>Reframe valeur</td><td>7/10</td></tr>
+        <tr><td>#10</td><td>Garantie satisfait ou rembourse 60 jours</td><td>Eliminateur de risque</td><td>7/10</td></tr>
+      </table>
+
+      <h3>Transformation promise</h3>
+      <table>
+        <tr><th>Souffrance</th><th>AVANT Purecoat</th><th>APRES Purecoat</th></tr>
+        <tr><td>PHYSIQUE</td><td>"Y'a du poil partout. Sur le divan, mes vetements, dans mon cafe."</td><td>"Mon divan est propre. Je porte du noir. Mon cafe est safe."</td></tr>
+        <tr><td>EMOTIONNELLE</td><td>"Je me sens coupable a chaque brossage. Mon chien a peur de moi."</td><td>"Mon chien vient vers moi quand je sors la brosse. C'est notre moment."</td></tr>
+        <tr><td>SOCIALE</td><td>"J'ai honte quand y'a de la visite."</td><td>"J'invite du monde sans stresser. On me complimente sur le pelage."</td></tr>
+        <tr><td>FINANCIERE</td><td>"J'ai gaspille 200$ en brosses + 100$/mois en toiletteur."</td><td>"49.99$ une fois. Ca dure. Le meilleur investissement."</td></tr>
+        <tr><td>TEMPORELLE</td><td>"Je passe l'aspirateur 3x par jour. Le brossage prend 30 minutes."</td><td>"5 minutes par semaine. J'aspire 2 fois par semaine."</td></tr>
+        <tr><td>IDENTITAIRE</td><td>"Je suis pas capable de gerer mon chien."</td><td>"Je gere le toilettage comme un pro. Mon chien est en sante."</td></tr>
+      </table>
+
+      <h3>Calendrier saisonnier des campagnes</h3>
+      <div class="schema-box">
+JANVIER      |----| Accalmie. Preparer le contenu pour la mue de printemps.
+FEVRIER      |-----| Pre-mue. Lancer campagnes "Prepare-toi". Souffrance identitaire.
+MARS         |==========| DEBUT MUE PRINTEMPS. Explosion. SCALER AGRESSIVEMENT.
+AVRIL        |============| PIC ABSOLU. Toutes les souffrances au max. Meilleure fenetre d'achat.
+MAI          |========| Fin de mue pour certaines races. Relief progressif.
+JUIN-JUILLET |----|  Minimum annuel. Angle allergies, chaleur, entretien.
+AOUT         |------| Pre-mue automne. Le client qui a souffert au printemps est RECEPTIF.
+SEPTEMBRE    |=========| DEBUT MUE AUTOMNE. Reprise. Combinable avec BFCM prep.
+OCTOBRE      |==========| PIC AUTOMNE. Halloween, invites. Fenetre d'achat #2.
+NOVEMBRE     |=======| Fin de mue + BFCM. Angle cadeau + urgence.
+DECEMBRE     |-----| Cadeau Noel. Angle gifting.</div>
+    `;
+    nStratSection.appendChild(extraNStrat);
+  }
+
+  // Add expanded Colette angles detail
+  const anglesSection = document.getElementById('c-angles');
+  if(anglesSection) {
+    const extraAngles = document.createElement('div');
+    extraAngles.innerHTML = `
+      <details>
+        <summary><strong>Angle #3 -- L'Ennemi Invisible / Systeme 2-Points (TAM MASSIF)</strong></summary>
+        <div class="accordion-content">
+          <p><strong>L'idee:</strong> L'ennemi n'est pas une marque -- c'est le DESIGN du bra lui-meme. Le Systeme 2-Points: tout le poids de ta poitrine sur 2 ficelles de 5mm. On blame le systeme, pas la femme.</p>
+          <p><strong>Hook:</strong> "Ton bra tient ta poitrine avec 2 petites ficelles de 5 millimetres."</p>
+          <p><strong>Lead:</strong> "Le soutien-gorge a ete invente y'a 100 ans. Depuis, le design a pas change: 2 bretelles fines, une bande elastique, pis on espere que ca tient. C'est comme porter un sac a dos avec une ficelle. Ca tient pas. Pis c'est pas toi le probleme."</p>
+          <p><strong>Format:</strong> Video educative 30-45 sec + Carrousel</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>Angle #5 -- L'Avant/Apres Silhouette (TAM MASSIF)</strong></summary>
+        <div class="accordion-content">
+          <p><strong>L'idee:</strong> Montrer visuellement la transformation: dos avec bra classique (bourrelet visible) vs Tank Confort (dos lisse). 307 mentions de "smooth lines under my clothes."</p>
+          <p><strong>Hook:</strong> "J'ai pas maigri. J'ai juste arrete de porter un bra qui me faisait des bourrelets dans le dos."</p>
+          <p><strong>Lead:</strong> "Mon beau-frere m'a dit: 'coudonc, t'as-tu perdu du poids?' J'ai pas perdu une livre. J'ai juste arrete de porter un bra qui creait des bourrelets que j'avais meme pas."</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>Angle #6 -- Le Dernier Jour d'Armature (TAM MASSIF)</strong></summary>
+        <div class="accordion-content">
+          <p><strong>L'idee:</strong> L'armature est le symbole de la prison physique. L'urgence n'est pas une date -- c'est une decision: aujourd'hui est le dernier jour ou tu portes quelque chose qui te blesse.</p>
+          <p><strong>Hook:</strong> "Aujourd'hui c'est la derniere journee que t'endures une armature."</p>
+          <p><strong>Lead:</strong> "L'armature qui pince. La broche qui rentre dans le sternum. L'agrafe dans le dos qui gratte. Ca fait combien de temps que tu te dis 'faudrait que je trouve de quoi d'autre'? Le 'de quoi d'autre' existe. Zero armature. Zero broche. Zero agrafe. Juste du confort."</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>Angle #7 -- La Curiosite du Chum (TAM MOYEN)</strong></summary>
+        <div class="accordion-content">
+          <p><strong>L'idee:</strong> Le desir de beaute est code en validation sociale. "Husband thought it made my girls look amazing." Le conjoint qui remarque quelque chose de different EST le signal de transformation.</p>
+          <p><strong>Hook:</strong> "Mon chum m'a dit: 'coudonc, t'as-tu maigri?'"</p>
+          <p><strong>Lead:</strong> "Mon chum me regarde l'autre soir pis me dit: 'tu portes quoi de different, ca te fait bien.' J'ai rien change. J'ai juste remplace mon vieux bra a armature par un vetement qui me fait pas de bourrelets dans le dos. C'est tout. Mais faut croire que ca se voit."</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>Angle #14 -- Le Cadeau qui Soulage (TAM MASSIF en Q4)</strong></summary>
+        <div class="accordion-content">
+          <p><strong>L'idee:</strong> Acheter pour sa mere qui souffre en silence depuis 50 ans. Le B2G1 = "une pour toi, une pour ta mere, une pour ta soeur." La generosite est le moteur d'achat. La deadline naturelle (Noel, Fete des Meres) cree l'urgence.</p>
+          <p><strong>Hook:</strong> "J'ai achete ca pour ma mere. A 72 ans, c'est la premiere fois qu'a dit: 'j'ai pas mal.'"</p>
+          <p><strong>Lead:</strong> "Ma mere a 72 ans pis a porte encore le meme bra deprimant depuis 15 ans. A se plaint du dos mais a veut rien changer. Fait que j'y ai achete. Quand a l'a essaye, a m'a appele pour me dire: 'comment ca se fait que j'ai endure ca aussi longtemps?' C'est le plus beau cadeau que j'y ai jamais fait."</p>
+          <p><strong>Timing:</strong> Pre-Noel (oct-dec), pre-Fete des Meres (avril-mai)</p>
+        </div>
+      </details>
+
+      <h3>3 phrases qui doivent etre dans CHAQUE ad</h3>
+      <div class="card">
+        <p style="font-size: 16px; text-align: center; margin: 0;">
+          <strong>1.</strong> "Les coussinets sont cousus. Ils bougent pas."<br>
+          <strong>2.</strong> "Echange gratuit si la taille est pas bonne."<br>
+          <strong>3.</strong> "Achete 2, recois 1 gratuite."
+        </p>
+      </div>
+    `;
+    anglesSection.appendChild(extraAngles);
+  }
+
+  // Add expanded Nuvopet angles detail
+  const nAnglesSection = document.getElementById('n-angles');
+  if(nAnglesSection) {
+    const extraNAngles = document.createElement('div');
+    extraNAngles.innerHTML = `
+      <details open>
+        <summary><strong>Angle #1 -- Le Piege de la Lame (TAM MASSIF)</strong></summary>
+        <div class="accordion-content">
+          <p><strong>L'idee:</strong> Le client ne sait pas que sa brosse a une lame deguisee entre les dents. Cette lame coupe le poil sain au lieu de retirer le sous-poil mort.</p>
+          <p><strong>Hook:</strong> "Savais-tu que ta brosse a une lame cachee entre les dents? C'est pour ca que le pelage de ton chien est rendu sec pis rapeche."</p>
+          <p><strong>Lead:</strong> "Ta brosse coupe le poil sain de ton chien a chaque coup. Les toiletteuses le savent depuis des annees -- les brosses a lames endommagent le pelage au lieu de le proteger. Le Purecoat a ZERO lame: juste des dents arrondies qui retirent le sous-poil mort sans toucher au guard hair."</p>
+          <p><strong>Format:</strong> Video educative 30 sec avec close-up lame vs dents arrondies</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>Angle #3 -- La Pile de Preuve (TAM MASSIF -- format viral)</strong></summary>
+        <div class="accordion-content">
+          <p><strong>L'idee:</strong> L'angle le plus direct et le plus viral. Montrer le volume choquant de sous-poil retire en 5 minutes. Le client visualise que tout ce poil serait tombe sur son divan.</p>
+          <p><strong>Hook:</strong> "5 minutes de brossage sur mon Golden. Regarde la pile. C'est CA qui etait sur ton divan cette semaine."</p>
+          <p><strong>Format:</strong> Video POV 20-30 sec avec timer visible, son ASMR naturel. TikTok = plateforme #1 pour la viralite.</p>
+          <p><strong>Pourquoi ca marche:</strong> Les videos ASMR de brossage sont un format viral natif. Le volume impressionnant cree un "wow moment" qui drive le partage organique. Rhykin fait $2M/mois avec ce concept mais n'est PAS sur TikTok -- faille beante a exploiter.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>Angle #4 -- De la Peur a la Connexion (meilleur seller emotionnel)</strong></summary>
+        <div class="accordion-content">
+          <p><strong>L'idee:</strong> Le chien qui fuyait la brosse vient maintenant vers son maitre. Le brossage est devenu un moment de connexion. C'est l'angle que ZERO concurrent exploite -- ils parlent tous de performance technique.</p>
+          <p><strong>Hook:</strong> "Mon Golden se cachait sous la table quand je sortais la brosse. Depuis les dents arrondies? C'est LUI qui vient me voir."</p>
+          <p><strong>Lead:</strong> "Pendant 3 ans, brosser Charlie etait une bataille. Y se debattait, y avait peur, pis moi je me sentais coupable. Depuis qu'on a switche pour des dents arrondies, le brossage est devenu notre moment a nous -- y se couche pis y ferme les yeux."</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>Angle #5 -- Le Divan Libere (TAM MASSIF -- desir #1)</strong></summary>
+        <div class="accordion-content">
+          <p><strong>L'idee:</strong> Le resultat concret: la maison propre. Le divan sans poils. Les vetements noirs portables. C'est universel -- toutes les races, tous les marches.</p>
+          <p><strong>Hook:</strong> "Tu passes l'aspirateur 3 fois par jour pis y'a ENCORE du poil? Regarde ca."</p>
+          <p><strong>Lead:</strong> "Apres 3 brossages avec le Purecoat, mon divan a change de couleur. Le poil dans la maison, c'est fini."</p>
+          <p><strong>Format:</strong> Before/after photo/video, UGC, statiques comparatives</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><strong>Angles race-specifiques (#8 Golden, #9 Husky, #10 GSD, #11 Lab)</strong></summary>
+        <div class="accordion-content">
+          <p><strong>Pourquoi par race:</strong> Le client veut voir SA race. Un temoignage d'un proprio de Golden vaut 10x un review generique. Les copies doivent NOMMER la race.</p>
+          <table>
+            <tr><th>Angle</th><th>Race</th><th>Hook</th></tr>
+            <tr><td>#8 Golden Glitter</td><td>Golden Retriever</td><td>"Si ton Golden laisse du 'Golden glitter' sur tout ce qui est noir... y'a une solution."</td></tr>
+            <tr><td>#9 Le Blowout du Husky</td><td>Husky/Malamute/Samoyed</td><td>"Ton Husky blow son coat? Regarde le NUAGE de sous-poil qui sort en 5 minutes."</td></tr>
+            <tr><td>#10 Le Marathon du GSD</td><td>Berger Allemand</td><td>"T'as un Berger Allemand pis c'est mars? Mes condoleances. Le tsunami de sous-poil est commence."</td></tr>
+            <tr><td>#11 Le Lab Invisible</td><td>Labrador</td><td>"Mon Lab perd du poil 365 jours par an. Ca s'arrete JAMAIS. Sauf avec ca."</td></tr>
+          </table>
+        </div>
+      </details>
+
+      <h3>Combinaisons de souffrances les plus puissantes pour les ads</h3>
+      <div class="card">
+        <p><strong>Combo #1: PHYSIQUE + TEMPORELLE</strong> (la plus courante, la plus efficace)<br>
+        "Tu passes l'aspirateur 3x par jour pis y'a ENCORE du poil partout? 5 minutes avec ca par semaine, pis c'est regle."</p>
+      </div>
+      <div class="card">
+        <p><strong>Combo #2: EMOTIONNELLE + IDENTITAIRE</strong> (la plus profonde)<br>
+        "Ton chien a peur quand tu sors la brosse? C'est pas toi le probleme -- c'est ta brosse. Avec des dents arrondies, y va venir vers toi."</p>
+      </div>
+      <div class="card">
+        <p><strong>Combo #3: SOCIALE + PHYSIQUE</strong> (le declencheur d'achat impulsif)<br>
+        "Tes invites se levent du divan couvert de poils. Le poil est dans la nourriture. Dans le cafe. C'est fini ca."</p>
+      </div>
+      <div class="card">
+        <p><strong>Combo #4: FINANCIERE + TEMPORELLE</strong> (le rationnel)<br>
+        "150$ chez le toiletteur. 100$/an en rouleaux. 2 heures d'aspirateur par jour. Ou 49.99$ une fois, 5 minutes par semaine."</p>
+      </div>
+      <div class="card">
+        <p><strong>Combo #5: EMOTIONNELLE + SOCIALE</strong> (le storytelling)<br>
+        "Ma belle-mere m'a dit que mon chien etait neglige. Ca m'a brise le coeur. J'ai trouve la Purecoat, pis la prochaine fois qu'elle est venue, elle a dit 'wow, son pelage est magnifique.'"</p>
+      </div>
+    `;
+    nAnglesSection.appendChild(extraNAngles);
+  }
+
+  // Add expanded Nuvopet hooks
+  const nHooksSection = document.getElementById('n-hooks');
+  if(nHooksSection) {
+    const extraNHooks = document.createElement('div');
+    extraNHooks.innerHTML = `
+      <h4>Curiosite (suite)</h4>
+      <div class="hook-card">
+        <div class="hook-num">C2</div>
+        <div><div class="hook-text">"Y'a un mot que les toiletteuses utilisent que tu connais probablement pas: extraction."</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">C4</div>
+        <div><div class="hook-text">"Le secret que ta toiletteuse te dit pas: a utilise pas de lames."</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">C5</div>
+        <div><div class="hook-text">"Pourquoi ton Husky a l'air rapeche apres le brossage? Regarde ta brosse."</div></div>
+      </div>
+      <h4>Desir / Transformation (suite)</h4>
+      <div class="hook-card">
+        <div class="hook-num">D2</div>
+        <div><div class="hook-text">"Apres 3 brossages, mon divan a change de couleur. Pour vrai."</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">D4</div>
+        <div><div class="hook-text">"Le pelage de mon Golden brille tellement que ma voisine pense que je l'amene chez le toiletteur chaque semaine."</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">D5</div>
+        <div><div class="hook-text">"Fini les excuses pour les poils quand y'a de la visite."</div></div>
+      </div>
+      <h4>Frustration / Colere</h4>
+      <div class="hook-card">
+        <div class="hook-num">F1</div>
+        <div><div class="hook-text">"J'ai depense 200$ en brosses qui marchent pas. Celle-la? Game. Changer."</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">F2</div>
+        <div><div class="hook-text">"Mon Dyson Animal est en burn-out pis y'a ENCORE du poil partout."</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">F3</div>
+        <div><div class="hook-text">"On m'avait dit qu'un Golden c'etait facile. On m'avait pas dit que mon divan deviendrait un tapis de poils."</div></div>
+      </div>
+      <div class="hook-card">
+        <div class="hook-num">F4</div>
+        <div><div class="hook-text">"Y'a du poil dans mon cafe. Litteralement. Dans. Mon. Cafe."</div></div>
+      </div>
+
+      <h3>Top 10 hooks Nuvopet classes par potentiel de conversion</h3>
+      <table>
+        <tr><th>Rang</th><th>Hook</th><th>Pourquoi</th></tr>
+        <tr><td>1</td><td>"Savais-tu que ta brosse a une LAME cachee?"</td><td>Surprise + peur + revelation. Scroll-stopper naturel.</td></tr>
+        <tr><td>2</td><td>"5 minutes. Regarde ce qui sort de mon [Race]."</td><td>Curiosite + preuve visuelle. Format viral TikTok.</td></tr>
+        <tr><td>3</td><td>"Mon [Race] se cachait quand je sortais la brosse. Regarde-le maintenant."</td><td>Transformation emotionnelle. Zero concurrent l'exploite.</td></tr>
+        <tr><td>4</td><td>"Ta brosse COUPE le poil de ton chien. Comme un rasoir."</td><td>Peur intense + indignation. Ouvre sur l'ennemi commun.</td></tr>
+        <tr><td>5</td><td>"Tu passes l'aspirateur 3 fois par jour pis y'a ENCORE du poil?"</td><td>Frustration universelle. 80%+ des proprios double coat.</td></tr>
+        <tr><td>6</td><td>"J'ai depense 200$ en brosses qui marchent pas."</td><td>Identification immediate. Sceptique converti.</td></tr>
+        <tr><td>7</td><td>"Le brossage est devenu notre moment a nous."</td><td>Connexion emotionnelle. Le desir cache du marche.</td></tr>
+        <tr><td>8</td><td>"Quand ton chien se sauve en voyant la brosse, c'est parce que ca fait MAL."</td><td>Culpabilite intense. Ouvre sur la permission de brosser.</td></tr>
+        <tr><td>9</td><td>"T'as un Berger Allemand pis c'est mars? Mes condoleances."</td><td>Race-specific + humour + urgence saisonniere.</td></tr>
+        <tr><td>10</td><td>"Apres 3 brossages, mon divan a change de couleur."</td><td>Resultat concret. Simple. Credible. Desir #1.</td></tr>
+      </table>
+    `;
+    nHooksSection.appendChild(extraNHooks);
+  }
+
+  // Add expanded insights - Podcast detail
+  const podcastSection = document.getElementById('i-podcast');
+  if(podcastSection) {
+    const extraPodcast = document.createElement('div');
+    extraPodcast.innerHTML = `
+      <h3>Produit &amp; Offre</h3>
+      <blockquote><p>Le moindre changement de prix peut etre important sur Meta. Tu peux faire 100K sur un prix et zero sur l'autre.</p><cite>-- MASTER #43</cite></blockquote>
+      <p>Tester BEAUCOUP de prix differents. Pre-selectionner le bundle qu'on veut vendre -- les autres options sont la juste pour positionner le prix psychologiquement.</p>
+
+      <blockquote><p>Peu de personnes le font et ca coute rien de rajouter une garantie. Montrer la valeur de la garantie en mettant le prix AVEC et SANS garantie.</p><cite>-- MASTER #43</cite></blockquote>
+
+      <h3>IA = Le glitch de 2026</h3>
+      <blockquote><p>On a un lapse de temps. Ces prochains mois, on peut massivement utiliser l'IA pour faire massivement de l'argent avant que tout le monde l'utilise. 80% du business c'est de l'IA. Sans me rendre compte, 80% des creatives c'est IA, le media buying c'est avec des techniques IA.</p><cite>-- MASTER #43</cite></blockquote>
+
+      <h3>Formats creatives 2026 qui marchent</h3>
+      <table>
+        <tr><th>Format</th><th>Description</th><th>Application Colette/Nuvopet</th></tr>
+        <tr><td><strong>Cartoon IA</strong></td><td>Faisable avec Seedance 2.5. Le concept est un vehicule, le message est l'essentiel.</td><td>Scenarios de douleur en animation (marques rouges, poils partout)</td></tr>
+        <tr><td><strong>Format Founder IA</strong></td><td>Creer le founder en IA, reponse aux objections dans des decors voulus.</td><td>"Colette" qui repond aux questions des clientes sceptiques</td></tr>
+        <tr><td><strong>Point of View Produit</strong></td><td>Les produits qui se parlent entre eux avec humour.</td><td>"Moi je suis un bra a armature. Pis toi?" "Moi je suis le Tank Confort. J'ai pas d'armature."</td></tr>
+        <tr><td><strong>Seedance 2.5</strong></td><td>Videos 4K humaines en 40 secondes d'un seul prompt.</td><td>B-rolls lifestyle, demonstrations produit, scenes emotionnelles</td></tr>
+      </table>
+
+      <h3>Hooks qui marchent en 2026</h3>
+      <p>Les meilleurs hooks recents selon Matteo &amp; Nico:</p>
+      <ul style="list-style: none; padding: 0;">
+        <li style="padding: 4px 0;">-- Quelqu'un qui dit "Hey stop" ou "Arrete de scroller"</li>
+        <li style="padding: 4px 0;">-- Du MOUVEMENT dans le hook (capte l'attention)</li>
+        <li style="padding: 4px 0;">-- Rupture de pattern (quelque chose d'inattendu)</li>
+        <li style="padding: 4px 0;">-- Utiliser le ROUGE (texte rouge + fond blanc = attention instinctive)</li>
+        <li style="padding: 4px 0;">-- Re-hooks tout du long de la video (footages visuels de hook pour que ca soit satisfaisant)</li>
+        <li style="padding: 4px 0;">-- Quelque chose qui cible la personne ET fait poser une question dans les 3 premieres secondes</li>
+      </ul>
+
+      <h3>Post-Purchase Surveys -- LA question</h3>
+      <blockquote><p>Qu'est-ce qui a failli te stopper d'acheter? Avec cette boucle, on va pouvoir avoir un funnel qui a le moins de friction possible.</p><cite>-- MASTER #43</cite></blockquote>
+      <p>Les commentaires sous les ads = mine d'or d'objections a repondre. Identifier les objections par etape: en ads (commentaires), sur le site (post-purchase survey). Format Founder qui lit et repond aux objections = ultra puissant.</p>
+
+      <h3>Upsell post-achat -- 5 options</h3>
+      <table>
+        <tr><th>#</th><th>Type</th><th>Note</th></tr>
+        <tr><td>1</td><td>Meme produit moins cher</td><td>Marche TOUJOURS</td></tr>
+        <tr><td>2</td><td>Garantie</td><td>Coute rien, convertit bien</td></tr>
+        <tr><td>3</td><td>Produit complementaire</td><td>Cross-sell naturel</td></tr>
+        <tr><td>4</td><td>Upgrade de commande</td><td>Augmente AOV</td></tr>
+        <tr><td>5</td><td>Shipping protection</td><td>Pre-selectionnee</td></tr>
+      </table>
+    `;
+    podcastSection.appendChild(extraPodcast);
+  }
+
+  // Add Colette croyances fausses detail
+  const croyancesSection = document.getElementById('c-croyances');
+  if(croyancesSection) {
+    const extraCroyances = document.createElement('div');
+    extraCroyances.innerHTML = `
+      <h3>Les 6 fausses croyances a detruire</h3>
+      <div class="card">
+        <div class="card-title">Fausse croyance #1: "C'est normal d'avoir mal avec un bra"</div>
+        <p><strong>D'ou ca vient:</strong> 30-50 ans de conditionnement generationnel. La mere portait un bra inconfortable. La grand-mere aussi. Les vendeuses ont toujours dit "ca va s'assouplir."</p>
+        <p><strong>Comment la deconstruire:</strong> Nommer la douleur specifiquement: "Les marques rouges sur tes epaules le soir, c'est pas normal." Comparer: "Ton chandail te fait pas mal. Pourquoi ton bra devrait te faire mal?"</p>
+        <p><strong>Croyance de remplacement:</strong> "Le confort, c'est pas un luxe. C'est un droit. Et un vetement bien concu ne fait PAS mal."</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Fausse croyance #2: "Sans armature, ca tient rien"</div>
+        <p><strong>D'ou ca vient:</strong> 50 ans de marketing Victoria's Secret, Playtex, Wonderbra qui associent "support" a "rigidite." Chaque alternative wireless que la femme a essayee l'a decue.</p>
+        <p><strong>Comment la deconstruire:</strong> Montrer le mecanisme: "Le support vient de la repartition du poids -- des bretelles larges 4cm, pas 2 ficelles qui creusent 2 points." Preuve visuelle: video de profil avant/apres.</p>
+        <p><strong>Croyance de remplacement:</strong> "Le support vient du design, pas du metal."</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Fausse croyance #3: "C'est MON corps le probleme"</div>
+        <p><strong>D'ou ca vient:</strong> Les size charts concus pour un "corps standard" qui n'existe pas. L'eclairage fluorescent des cabines. Les mannequins de 25 ans dans les pubs. 26% des femmes trouvent les essayages "daunting" a cause de la gene corporelle.</p>
+        <p><strong>Comment la deconstruire:</strong> Reframe direct: "C'est pas ton corps le probleme. C'est ton bra." Retourner la statistique: "80% des femmes portent la mauvaise taille -- ca veut dire que le SYSTEME est defaillant, pas 80% des femmes."</p>
+        <p><strong>Croyance de remplacement:</strong> "Mon corps n'a pas besoin de changer. C'est le vetement qui doit s'adapter a moi."</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Fausse croyance #4: "Les produits en ligne c'est de la marde"</div>
+        <p><strong>D'ou ca vient:</strong> Experiences repetees avec des produits dropship. "Fake ads." Tissu cheap. Tailles fausses. Retours impossibles.</p>
+        <p><strong>Comment la deconstruire:</strong> Ton authentique, pas de claims exageres. Politique tangible. Proximite quebecoise.</p>
+        <p><strong>Croyance de remplacement:</strong> "Y'a une difference entre un produit chinois vendu par un anonyme et un vetement d'une marque qui assume son service."</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Fausse croyance #5: "A mon age, c'est trop tard"</div>
+        <p><strong>D'ou ca vient:</strong> La societe invisibilise les femmes 50+. Le marketing s'adresse aux 25-35 ans. Le corps change et la femme croit que le changement = la fin des solutions.</p>
+        <p><strong>Comment la deconstruire:</strong> "78 and finally found something that actually supports me!" Retourner l'age en argument: "T'as endure 30 ans. T'as le droit d'arreter." Montrer des femmes 50-70+ epanouies.</p>
+        <p><strong>Croyance de remplacement:</strong> "C'est PARCE QUE j'ai 55/60/70 ans que je merite d'etre confortable. J'ai assez endure."</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Fausse croyance #6: "Si je porte pas de bra, je suis pas presentable"</div>
+        <p><strong>D'ou ca vient:</strong> Norme sociale ancree. Le bra comme obligation professionnelle et sociale.</p>
+        <p><strong>Comment la deconstruire:</strong> Redefiniton de categorie: "C'est pas 'braless.' C'est un VETEMENT avec le support integre dedans." Temoignage: "I finally feel put-together, no hooks." Elle est PLUS presentable, pas moins.</p>
+        <p><strong>Croyance de remplacement:</strong> "Je suis presentable parce que je suis a l'aise. Pas parce que je porte une armature."</p>
+      </div>
+
+      <h3>Application dans les ads et le funnel</h3>
+      <table>
+        <tr><th>Type d'ad</th><th>Croyance principale</th><th>Hook</th></tr>
+        <tr><td>Statique -- Douleur</td><td>#1</td><td>"Tes epaules meritent mieux que ca"</td></tr>
+        <tr><td>Statique -- Support</td><td>#2</td><td>"Pas d'armature. Ca tient pareil."</td></tr>
+        <tr><td>Statique -- Sizing</td><td>#3</td><td>"Pas de bonnet. Pas de bande. Juste ta taille."</td></tr>
+        <tr><td>Statique -- Coussinets</td><td>#4</td><td>"Cousus dedans. Bougent pas."</td></tr>
+        <tr><td>Statique -- Confiance</td><td>#5</td><td>"Echange gratuit. Tu gardes celle que t'as."</td></tr>
+        <tr><td>Statique -- Permission</td><td>#6</td><td>"T'as endure 30 ans. Essaie."</td></tr>
+        <tr><td>Video UGC</td><td>Echelle complete</td><td>"J'ai toujours pense que c'etait moi..."</td></tr>
+      </table>
+
+      <p><strong>Regles d'utilisation:</strong></p>
+      <p>1. Jamais plus de 2 croyances par ad statique. 2. La One Belief peut ouvrir N'IMPORTE QUEL contenu. 3. L'ordre est SACRE dans les formats longs (VSL, email sequence). 4. En retargeting, cibler les croyances #5 et #6. 5. En cold traffic, cibler les croyances #1 et #2.</p>
+    `;
+    croyancesSection.appendChild(extraCroyances);
+  }
+
+});
+</script>
+
+<script>
+function showBrand(brand) {
+  // Hide all sections
+  document.querySelectorAll('.brand-section').forEach(s => s.classList.remove('active'));
+  // Reset all tabs
+  document.querySelectorAll('.brand-tab').forEach(t => {
+    t.classList.remove('active-colette', 'active-nuvopet', 'active-insight');
+  });
+  // Show selected
+  document.getElementById('section-' + (brand === 'insights' ? 'insights' : brand)).classList.add('active');
+  document.getElementById('tab-' + (brand === 'insights' ? 'insights' : brand)).classList.add('active-' + (brand === 'insights' ? 'insight' : brand));
+}
+
+// Handle hash navigation
+if(window.location.hash) {
+  const hash = window.location.hash;
+  if(hash.startsWith('#c-')) showBrand('colette');
+  else if(hash.startsWith('#n-')) showBrand('nuvopet');
+  else if(hash.startsWith('#i-')) showBrand('insights');
+}
+</script>
+
+</body>
+</html>
